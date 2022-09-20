@@ -9,6 +9,7 @@
 .navLogo {
     height:80%;
     margin: 0;
+    cursor: pointer;
 }
 
 .topLeftNav {

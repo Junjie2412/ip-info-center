@@ -73,7 +73,7 @@ class GeolocationPage extends Component {
                             <IPICDateRangeDropdown
                                 header={"Period"}
                                 placeholder={"Select Date Range"}
-                                value={format(this.props.startDate, 'MM/do/Y')+" - "+format(this.props.endDate, 'MM/do/Y')}
+                                value={format(this.props.startDate, 'MM/dd/Y')+" - "+format(this.props.endDate, 'MM/dd/Y')}
                                 updateDate={this.updateDateSelection}
                                 startDate={this.props.startDate}
                                 endDate={this.props.endDate}
