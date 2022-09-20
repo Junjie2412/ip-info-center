@@ -1,0 +1,19 @@
+.IPICTab {
+    display: inline-block;
+    height: 100%;
+    margin: 0 5px 0 0;
+    padding: 0 10px 0 10px;
+    box-sizing: border-box;
+    box-shadow: 0 0 0 5px #c6d9f7;
+    border-radius: 5% 5% 5% 5%;
+    cursor: pointer;
+    background-color: white;
+}
+
+.IPICTabActive {
+    box-shadow: 0 10px 0 0 white;
+}
+
+.IPICTabWords {
+    font-size: 23px;
+}

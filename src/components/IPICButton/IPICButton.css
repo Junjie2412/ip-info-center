@@ -1,0 +1,33 @@
+.IPICButton {
+    cursor: pointer;
+    padding: 10px 15px;
+    font-size: inherit;
+    box-sizing: border-box;
+    width: 100px;
+    height: 50px;
+    border-radius: 5%;
+}
+
+.IPICButtonBlue {
+    background: #474cb0;
+    color: white;
+    border: 1px solid transparent;
+}
+
+.IPICButtonWhite {
+    background: white;
+    color: #474cb0;
+    border: 1px solid #474cb0;
+}
+
+.IPICButton:active {
+    transform: translateY(5px);
+}
+
+.IPICButtonBlue:active {
+    background: #252759;
+}
+
+.IPICButtonWhite:active {
+    background: lightgrey;
+}

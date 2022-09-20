@@ -1,0 +1,25 @@
+.GeolocationPage {
+    background-color: white;
+    width: 100%;
+    height: calc(100vh - 205px);
+}
+
+.GeolocationDropdownGroup {
+    width: calc(100% - 200px);
+    padding: 50px 0 0 100px;
+}
+
+.GeolocationDropdownGroup > div {
+    display: inline-block;
+    margin: 0 150px 0 0;
+}
+
+.GeolocationButton {
+    display: inline-block;
+    margin: 0 40px 0 0;
+}
+
+.GeolocationUploadMoreDataButton {
+    margin: 20px 50px 0 0;
+    float: right;
+}

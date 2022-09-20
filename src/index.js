@@ -2,13 +2,39 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import reportWebVitals from './reportWebVitals';
+import thunk from 'redux-thunk';
+import {BrowserRouter} from 'react-router-dom';
+import {Provider} from 'react-redux';
+import {createStore, applyMiddleware, compose, combineReducers} from 'redux';
+import searchReducer from './store/reducers/searchReducer';
+import tabReducer from './store/reducers/tabReducer';
+import geolocationReducer from './store/reducers/geolocationReducer';
+import tradeDataReducer from "./store/reducers/tradeDataReducer";
+
+const composeEnhancers = compose;
+
+const rootReducer = combineReducers({
+    searchReducer: searchReducer,
+    tabReducer: tabReducer,
+    geolocationReducer: geolocationReducer,
+    tradeDataReducer: tradeDataReducer
+});
+
+const store = createStore(rootReducer, composeEnhancers (
+    applyMiddleware(thunk)
+));
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+    <Provider store={store}>
+        <BrowserRouter>
+          <React.StrictMode>
+            <App />
+          </React.StrictMode>
+        </BrowserRouter>
+    </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function

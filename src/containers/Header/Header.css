@@ -1,0 +1,43 @@
+.topnav {
+    width: 100%;
+    height: 100px;
+    background-color: #c6d9f7;
+    position: relative;
+    margin: 0;
+}
+
+.navLogo {
+    height:80%;
+    margin: 0;
+}
+
+.topLeftNav {
+    width: fit-content;
+    height: 100%;
+    padding: 0;
+    margin-left: 20px;
+    display: inline-block;
+}
+
+.topLeftNavName {
+    margin-top: 0;
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+}
+
+.topRightNav {
+    width: fit-content;
+    height: 100%;
+    padding: 0;
+    margin-right: 20px;
+    display: inline-block;
+    float: right;
+}
+
+.topRightNavName {
+    font-size: 24px;
+    font-weight: bold;
+    display: inline-block;
+}

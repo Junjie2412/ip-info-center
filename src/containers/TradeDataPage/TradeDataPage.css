@@ -1,0 +1,15 @@
+.TradeDataPage {
+    background-color: white;
+    width: 100%;
+    height: calc(100vh - 205px);
+}
+
+.TradeDataDropdownGroup {
+    width: calc(100% - 200px);
+    padding: 50px 0 0 100px;
+}
+
+.TradeDataDropdownGroup > div {
+    display: inline-block;
+    margin: 0 150px 0 0;
+}

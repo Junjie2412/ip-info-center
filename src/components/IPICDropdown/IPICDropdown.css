@@ -1,0 +1,45 @@
+.IPICDropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.IPICDropdownInput {
+    box-sizing: border-box;
+    background-image: url('../../assets/search-icon.png');
+    background-position: 14px 12px;
+    background-repeat: no-repeat;
+    background-color: #f6f6f6;
+    background-size: 20px;
+    font-size: 16px;
+    padding: 14px 20px 12px 45px;
+    border: none;
+    border-bottom: 1px solid #ddd;
+}
+
+.IPICDropdownInput:focus {outline: 3px solid #ddd;}
+
+.IPICDropdownContent {
+    position: absolute;
+    background-size: 50px;
+    min-width: 245px;
+    overflow: auto;
+    border: 1px solid #ddd;
+    z-index: 1;
+    display: block;
+    max-height: 200px;
+    overflow-y: scroll;
+}
+
+.IPICDropdownContent div > div {
+    color: black;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.IPICDropdown div > div:hover {
+    background-color: #ddd;
+}
+
+.IPICDropdownHeader {
+    margin: 0 0 20px 0;
+}
