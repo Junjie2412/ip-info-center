@@ -1,5 +1,7 @@
 export {
-    setCurrentTab
+    setCurrentTab,
+    showGeolocationTab,
+    showTradeDataTab
 } from './tabActions'
 
 export {

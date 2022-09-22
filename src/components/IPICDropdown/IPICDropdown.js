@@ -5,7 +5,7 @@ import Form from 'react-bootstrap/Form';
 const IPICDropdown = (props) => {
 
     let checkList = props.list.map(item => (
-        <div key={item.name}>
+        <div key={item.name} className={"DropdownOptions"}>
             <Form.Check
                 type={"checkbox"}
                 id={item.name}

@@ -28,6 +28,7 @@ class TradeDataPage extends Component {
     };
 
     render () {
+
         return (
             <Aux>
                 <div className="TradeDataPage">

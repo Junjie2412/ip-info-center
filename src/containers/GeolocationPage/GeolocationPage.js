@@ -8,6 +8,7 @@ import IPICDateRangeDropdown from '../../components/IPICDateRangeDropdown/IPICDa
 import {format} from 'date-fns';
 import IPICButton from "../../components/IPICButton/IPICButton";
 import UploadFilesButton from "../../components/UploadFilesButton/UploadFilesButton";
+import IPICGoogleMaps from "../../components/IPICGoogleMaps/IPICGoogleMaps";
 
 class GeolocationPage extends Component {
 
@@ -116,6 +117,9 @@ class GeolocationPage extends Component {
                                 <IPICButton label={"RESET"} type={"white"}/>
                             </div>
                         </div>
+                    </div>
+                    <div className={"googleMapsContainer"}>
+                        <IPICGoogleMaps/>
                     </div>
                 </div>
             </Aux>

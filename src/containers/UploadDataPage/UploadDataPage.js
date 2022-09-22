@@ -12,6 +12,11 @@ class UploadDataPage extends Component {
         this.props.onSetCurrentTab("Search Criteria");
     }
 
+    openTabs = () => {
+        this.props.onShowGeolocationTab(true);
+        this.props.onShowTradeDataTab(true);
+    }
+
     render () {
         return (
             <Aux>
@@ -36,7 +41,7 @@ class UploadDataPage extends Component {
                     <div className="UploadNavSection">
                         <div className="UploadNavButtonGroup">
                             <div className="UploadNavButton">
-                                <IPICButton label={"SUBMIT"} type={"blue"}/>
+                                <IPICButton onClick={this.openTabs} label={"SUBMIT"} type={"blue"}/>
                             </div>
                             <div className="UploadNavButton">
                                 <IPICButton label={"CANCEL"} type={"white"}/>
@@ -58,6 +63,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         onSetCurrentTab: (tab) => dispatch(actions.setCurrentTab(tab)),
+        onShowGeolocationTab: (show) => dispatch(actions.showGeolocationTab(show)),
+        onShowTradeDataTab: (show) => dispatch(actions.showTradeDataTab(show))
     }
 };
 

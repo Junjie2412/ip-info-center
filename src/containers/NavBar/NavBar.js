@@ -21,8 +21,8 @@ class NavBar extends Component {
             <Aux>
                 <div className="NavBar">
                     <IPICTab label="Search Criteria" selected={this.props.currentTab==="Search Criteria"} onClick={()=> this.setTab("Search Criteria")} link={"/home"}/>
-                    <IPICTab label="Geolocation Data" selected={this.props.currentTab==="Geolocation Data"} onClick={()=> this.setTab("Geolocation Data")} link={"/geolocation"}/>
-                    <IPICTab label="Trade Data" selected={this.props.currentTab==="Trade Data"} onClick={()=>this.setTab("Trade Data")} link={"/tradedata"}/>
+                    <IPICTab hidden={!this.props.showGeolocationTab} label="Geolocation Data" selected={this.props.currentTab==="Geolocation Data"} onClick={()=> this.setTab("Geolocation Data")} link={"/geolocation"}/>
+                    <IPICTab hidden={!this.props.showTradeDataTab} label="Trade Data" selected={this.props.currentTab==="Trade Data"} onClick={()=>this.setTab("Trade Data")} link={"/tradedata"}/>
                     <div className="NavBarRight">
                         <p className="NavBarRightWords">About IPIC</p>
                     </div>
@@ -34,13 +34,15 @@ class NavBar extends Component {
 
 const mapStateToProps = state => {
     return {
-        currentTab: state.tabReducer.currentTab
+        currentTab: state.tabReducer.currentTab,
+        showGeolocationTab: state.tabReducer.showGeolocationTab,
+        showTradeDataTab: state.tabReducer.showTradeDataTab
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        onSetCurrentTab: (tab) => dispatch(actions.setCurrentTab(tab)),
+        onSetCurrentTab: (tab) => dispatch(actions.setCurrentTab(tab))
     }
 };
 

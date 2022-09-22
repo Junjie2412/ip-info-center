@@ -43,3 +43,8 @@
 .IPICDropdownHeader {
     margin: 0 0 20px 0;
 }
+
+.DropdownOptions {
+    background-color: white;
+    height: 29px;
+}
