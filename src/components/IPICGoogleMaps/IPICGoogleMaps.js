@@ -24,7 +24,7 @@ const IPICGoogleMaps = (props) => {
                             icon={homeIcon}
                             label="H"
                     />
-                    <Marker position={{ lat: 44, lng: -80.5}}
+                    <Marker position={{ lat: 44, lng: -80.2}}
                             title={"Here is the marker"}
                             onClick={() => alert("Hi this is the marker")}
                             label="IP"
