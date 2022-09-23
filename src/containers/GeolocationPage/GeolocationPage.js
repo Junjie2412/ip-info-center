@@ -121,7 +121,9 @@ class GeolocationPage extends Component {
                         </div>
                     </div>
                     <div className="GeolocationExportButton">
-                        <IPICButton label={"EXPORT"} type={"blue"}/>
+                        <div>
+                            <IPICButton label={"EXPORT"} type={"blue"}/>
+                        </div>
                     </div>
                     <div className={"googleMapsContainer"}>
                         <IPICGoogleMaps/>

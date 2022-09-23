@@ -33,9 +33,10 @@ class Header extends Component {
                         <img src={this.state.logo} alt={"loading..."} className="navLogo" onClick={this.gififyLogo}/>
                         <p className="topLeftNavName">IP Information Center</p>
                     </div>
+                    {/*
                     <div className="topRightNav">
                         <p className="topRightNavName">UserName/User ID</p>
-                    </div>
+                    </div>*/}
                 </div>
             </Aux>
         );
