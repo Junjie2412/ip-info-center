@@ -14,6 +14,20 @@
     margin: 0 50px 0 0;
 }
 
+.TradeDataButtonGroup {
+    padding: 50px 0 0 100px;
+}
+
+.TradeDataButton {
+    display: inline-block;
+    margin: 0 40px 0 0;
+}
+
+.TradeDataUploadMoreDataButton {
+    margin: 20px 50px 0 0;
+    float: right;
+}
+
 @media only screen and (max-width: 1280px) {
 
     .TradeDataDropdownGroup > div {

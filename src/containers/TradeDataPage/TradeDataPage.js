@@ -7,11 +7,14 @@ import IPICButton from "../../components/IPICButton/IPICButton";
 import * as actions from "../../store/actions";
 import {format} from "date-fns";
 import IPICDateRangeDropdown from "../../components/IPICDateRangeDropdown/IPICDateRangeDropdown";
+import UploadFilesButton from "../../components/UploadFilesButton/UploadFilesButton";
 
 class TradeDataPage extends Component {
 
     componentDidMount() {
         this.props.onSetCurrentTab("Trade Data");
+        this.props.onShowGeolocationTab(true);
+        this.props.onShowTradeDataTab(true);
     }
 
     updateDateSelection = (dateRanges) => {
@@ -27,11 +30,22 @@ class TradeDataPage extends Component {
         }
     };
 
+    toggleAccountNameDropdown = () => {
+        if(this.props.showAccountNameDropdown===true) {
+            this.props.onShowAccountNameDropdown(false);
+        }else{
+            this.props.onShowAccountNameDropdown(true);
+        }
+    };
+
     render () {
 
         return (
             <Aux>
                 <div className="TradeDataPage">
+                    <div className={"TradeDataUploadMoreDataButton"}>
+                        <UploadFilesButton label={"Upload More Data"}/>
+                    </div>
                     <div className="TradeDataDropdownGroup">
                         <div>
                             <IPICDateRangeDropdown
@@ -53,12 +67,21 @@ class TradeDataPage extends Component {
                             />
                         </div>
                         <div>
-                            <div className="GeolocationButton">
-                                <IPICButton label={"APPLY"} type={"blue"}/>
-                            </div>
-                            <div className="GeolocationButton">
-                                <IPICButton label={"RESET"} type={"white"}/>
-                            </div>
+                            <IPICDropdown
+                                header={"Account Name and Number"}
+                                placeholder={"Search and Select"}
+                                list={this.props.accountNamesAndNumbers}
+                                show={this.props.showAccountNameDropdown}
+                                onClickSearch={()=>this.toggleAccountNameDropdown()}
+                            />
+                        </div>
+                    </div>
+                    <div className={"TradeDataButtonGroup"}>
+                        <div className="TradeDataButton">
+                            <IPICButton label={"APPLY"} type={"blue"}/>
+                        </div>
+                        <div className="TradeDataButton">
+                            <IPICButton label={"RESET"} type={"white"}/>
                         </div>
                     </div>
                 </div>
@@ -71,6 +94,8 @@ const mapStateToProps = state => {
     return {
         ipaddresses: state.geolocationReducer.ipaddresses,
         showIPAddressesDropdown: state.tradeDataReducer.showIPAddressesDropdown,
+        accountNamesAndNumbers: state.geolocationReducer.accountNamesAndNumbers,
+        showAccountNameDropdown: state.tradeDataReducer.showAccountNameDropdown,
         startDate: state.geolocationReducer.startDate,
         endDate: state.geolocationReducer.endDate
     };
@@ -80,8 +105,12 @@ const mapDispatchToProps = dispatch => {
     return {
         onSetCurrentTab: (tab) => dispatch(actions.setCurrentTab(tab)),
         onShowIPAddressesDropdown: (show) => dispatch(actions.showIPAddressesTradeDataDropdown(show)),
+        onShowAccountNameDropdown: (show) => dispatch(actions.showAccountNameTradeDataDropdown(show)),
         onSetStartDate: (date) => dispatch(actions.setGeolocationStartDate(date)),
-        onSetEndDate: (date) => dispatch(actions.setGeolocationEndDate(date))
+        onSetEndDate: (date) => dispatch(actions.setGeolocationEndDate(date)),
+        onShowGeolocationTab: (show) => dispatch(actions.showGeolocationTab(show)),
+        onShowTradeDataTab: (show) => dispatch(actions.showTradeDataTab(show))
+
     }
 };
 

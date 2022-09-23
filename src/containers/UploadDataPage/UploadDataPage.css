@@ -11,7 +11,7 @@
 }
 
 .UploadNavWords {
-    margin: 0 150px 0 200px;
+    margin: 0 80px 0 200px;
     display: inline-block;
     font-size: 24px;
 }
@@ -26,12 +26,12 @@
 }
 
 .UploadFilesRadios label {
-    margin: 0 50px 0 0;
+    margin: 0 30px 0 0;
     font-size: 20px;
 }
 
 .UploadNavButtonGroup {
-    margin: 100px 0 0 300px;
+    margin: 30px 0 0 300px;
 }
 
 .UploadNavButton {

@@ -8,7 +8,7 @@ import thunk from 'redux-thunk';
 import {BrowserRouter} from 'react-router-dom';
 import {Provider} from 'react-redux';
 import {createStore, applyMiddleware, compose, combineReducers} from 'redux';
-import searchReducer from './store/reducers/searchReducer';
+import searchReducer from './store/reducers/uploadFilesReducer';
 import tabReducer from './store/reducers/tabReducer';
 import geolocationReducer from './store/reducers/geolocationReducer';
 import tradeDataReducer from "./store/reducers/tradeDataReducer";
@@ -19,7 +19,8 @@ const rootReducer = combineReducers({
     searchReducer: searchReducer,
     tabReducer: tabReducer,
     geolocationReducer: geolocationReducer,
-    tradeDataReducer: tradeDataReducer
+    tradeDataReducer: tradeDataReducer,
+    uploadFilesReducer: searchReducer
 });
 
 const store = createStore(rootReducer, composeEnhancers (

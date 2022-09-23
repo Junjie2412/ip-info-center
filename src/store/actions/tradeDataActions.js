@@ -6,3 +6,10 @@ export const showIPAddressesTradeDataDropdown = (show) => {
         show: show
     }
 };
+
+export const showAccountNameTradeDataDropdown = (show) => {
+    return {
+        type: actionTypes.SHOW_ACCOUNT_NAME_TRADE_DATA_DROPDOWN,
+        show: show
+    }
+}

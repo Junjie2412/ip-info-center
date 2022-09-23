@@ -5,6 +5,7 @@ import IPICButton from '../../components/IPICButton/IPICButton';
 import * as actions from "../../store/actions";
 import {connect} from 'react-redux';
 import UploadFilesButton from "../../components/UploadFilesButton/UploadFilesButton";
+import {NavLink} from "react-router-dom";
 
 class UploadDataPage extends Component {
 
@@ -15,7 +16,12 @@ class UploadDataPage extends Component {
     openTabs = () => {
         this.props.onShowGeolocationTab(true);
         this.props.onShowTradeDataTab(true);
-    }
+    };
+
+    handleFile = (file) => {
+        console.log(file);
+        this.props.onSetUploadFile(file.name);
+    };
 
     render () {
         return (
@@ -25,7 +31,7 @@ class UploadDataPage extends Component {
                         <div className="UploadNavWords">
                             <p>Upload Data</p>
                         </div>
-                        <UploadFilesButton label={"Upload Files"}/>
+                        <UploadFilesButton handleFile={this.handleFile} label={"Upload Files"} fileName={this.props.uploadedFile}/>
                     </div>
                     <div className="UploadNavSection">
                         <div className="UploadNavWords">
@@ -41,7 +47,9 @@ class UploadDataPage extends Component {
                     <div className="UploadNavSection">
                         <div className="UploadNavButtonGroup">
                             <div className="UploadNavButton">
-                                <IPICButton onClick={this.openTabs} label={"SUBMIT"} type={"blue"}/>
+                                <NavLink to={"/geolocation"}>
+                                    <IPICButton onClick={this.openTabs} label={"SUBMIT"} type={"blue"}/>
+                                </NavLink>
                             </div>
                             <div className="UploadNavButton">
                                 <IPICButton label={"CANCEL"} type={"white"}/>
@@ -56,7 +64,7 @@ class UploadDataPage extends Component {
 
 const mapStateToProps = state => {
     return {
-
+        uploadedFile: state.uploadFilesReducer.uploadedFile
     };
 };
 
@@ -64,7 +72,8 @@ const mapDispatchToProps = dispatch => {
     return {
         onSetCurrentTab: (tab) => dispatch(actions.setCurrentTab(tab)),
         onShowGeolocationTab: (show) => dispatch(actions.showGeolocationTab(show)),
-        onShowTradeDataTab: (show) => dispatch(actions.showTradeDataTab(show))
+        onShowTradeDataTab: (show) => dispatch(actions.showTradeDataTab(show)),
+        onSetUploadFile: (file) => dispatch(actions.setUploadedFile(file))
     }
 };
 

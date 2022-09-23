@@ -14,9 +14,11 @@ class GeolocationPage extends Component {
 
     componentDidMount() {
         this.props.onSetCurrentTab("Geolocation Data");
+        this.props.onShowGeolocationTab(true);
+        this.props.onShowTradeDataTab(true);
     }
 
-    toggleAccountNameDropDown = () => {
+    toggleAccountNameDropdown = () => {
         if(this.props.showAccountNameDropdown===true) {
             this.props.onShowAccountNameDropdown(false);
         }else{
@@ -67,7 +69,7 @@ class GeolocationPage extends Component {
                                 placeholder={"Search and Select"}
                                 list={this.props.accountNamesAndNumbers}
                                 show={this.props.showAccountNameDropdown}
-                                onClickSearch={()=>this.toggleAccountNameDropDown()}
+                                onClickSearch={()=>this.toggleAccountNameDropdown()}
                             />
                         </div>
                         <div>
@@ -118,6 +120,9 @@ class GeolocationPage extends Component {
                             </div>
                         </div>
                     </div>
+                    <div className="GeolocationExportButton">
+                        <IPICButton label={"EXPORT"} type={"blue"}/>
+                    </div>
                     <div className={"googleMapsContainer"}>
                         <IPICGoogleMaps/>
                     </div>
@@ -150,7 +155,9 @@ const mapDispatchToProps = dispatch => {
         onShowCountriesDropdown: (show) => dispatch(actions.showCountriesDropdown(show)),
         onShowIPAddressesDropdown: (show) => dispatch(actions.showIPAddressesDropdown(show)),
         onSetStartDate: (date) => dispatch(actions.setGeolocationStartDate(date)),
-        onSetEndDate: (date) => dispatch(actions.setGeolocationEndDate(date))
+        onSetEndDate: (date) => dispatch(actions.setGeolocationEndDate(date)),
+        onShowGeolocationTab: (show) => dispatch(actions.showGeolocationTab(show)),
+        onShowTradeDataTab: (show) => dispatch(actions.showTradeDataTab(show))
     }
 };
 
