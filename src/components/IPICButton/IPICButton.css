@@ -31,3 +31,14 @@
 .IPICButtonWhite:active {
     background: lightgrey;
 }
+
+.IPICButtonBlue:disabled {
+    transform: none;
+    background-color: #4549A8;
+    color: lightgrey;
+}
+
+.IPICButtonWhite:disabled {
+    transform: none;
+    background-color: #E8E8E8;
+}

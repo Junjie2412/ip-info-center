@@ -13,29 +13,12 @@ class TradeDataPage extends Component {
 
     componentDidMount() {
         this.props.onSetCurrentTab("Trade Data");
-        this.props.onShowGeolocationTab(true);
         this.props.onShowTradeDataTab(true);
     }
 
     updateDateSelection = (dateRanges) => {
         this.props.onSetStartDate(dateRanges.startDate);
         this.props.onSetEndDate(dateRanges.endDate);
-    };
-
-    toggleIPAddressesDropdown = () => {
-        if(this.props.showIPAddressesDropdown===true) {
-            this.props.onShowIPAddressesDropdown(false);
-        }else{
-            this.props.onShowIPAddressesDropdown(true);
-        }
-    };
-
-    toggleAccountNameDropdown = () => {
-        if(this.props.showAccountNameDropdown===true) {
-            this.props.onShowAccountNameDropdown(false);
-        }else{
-            this.props.onShowAccountNameDropdown(true);
-        }
     };
 
     render () {
@@ -62,8 +45,8 @@ class TradeDataPage extends Component {
                                 header={"IP Addresses"}
                                 placeholder={"Search and Select"}
                                 list={this.props.ipaddresses}
-                                show={this.props.showIPAddressesDropdown}
-                                onClickSearch={()=>this.toggleIPAddressesDropdown()}
+                                filter={this.props.ipAddressFilter}
+                                setFilter={(event)=>this.props.onSetIPAddressFilter(event.target.value)}
                             />
                         </div>
                         <div>
@@ -71,8 +54,8 @@ class TradeDataPage extends Component {
                                 header={"Account Name and Number"}
                                 placeholder={"Search and Select"}
                                 list={this.props.accountNamesAndNumbers}
-                                show={this.props.showAccountNameDropdown}
-                                onClickSearch={()=>this.toggleAccountNameDropdown()}
+                                filter={this.props.accountNamesAndNumbersFilter}
+                                setFilter={(event)=>this.props.onSetAccountNamesAndNumbersFilter(event.target.value)}
                             />
                         </div>
                     </div>
@@ -92,25 +75,23 @@ class TradeDataPage extends Component {
 
 const mapStateToProps = state => {
     return {
-        ipaddresses: state.geolocationReducer.ipaddresses,
-        showIPAddressesDropdown: state.tradeDataReducer.showIPAddressesDropdown,
-        accountNamesAndNumbers: state.geolocationReducer.accountNamesAndNumbers,
-        showAccountNameDropdown: state.tradeDataReducer.showAccountNameDropdown,
-        startDate: state.geolocationReducer.startDate,
-        endDate: state.geolocationReducer.endDate
+        ipaddresses: state.tradeDataReducer.ipaddresses,
+        accountNamesAndNumbers: state.tradeDataReducer.accountNamesAndNumbers,
+        startDate: state.tradeDataReducer.startDate,
+        endDate: state.tradeDataReducer.endDate,
+        accountNamesAndNumbersFilter: state.tradeDataReducer.accountNamesAndNumbersFilter,
+        ipAddressFilter: state.tradeDataReducer.ipAddressFilter
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
         onSetCurrentTab: (tab) => dispatch(actions.setCurrentTab(tab)),
-        onShowIPAddressesDropdown: (show) => dispatch(actions.showIPAddressesTradeDataDropdown(show)),
-        onShowAccountNameDropdown: (show) => dispatch(actions.showAccountNameTradeDataDropdown(show)),
-        onSetStartDate: (date) => dispatch(actions.setGeolocationStartDate(date)),
-        onSetEndDate: (date) => dispatch(actions.setGeolocationEndDate(date)),
-        onShowGeolocationTab: (show) => dispatch(actions.showGeolocationTab(show)),
-        onShowTradeDataTab: (show) => dispatch(actions.showTradeDataTab(show))
-
+        onSetStartDate: (date) => dispatch(actions.setTradeDataStartDate(date)),
+        onSetEndDate: (date) => dispatch(actions.setTradeDataEndDate(date)),
+        onShowTradeDataTab: (show) => dispatch(actions.showTradeDataTab(show)),
+        onSetAccountNamesAndNumbersFilter: (filter) => dispatch(actions.setAccountNamesAndNumbersTradeDataFilter(filter)),
+        onSetIPAddressFilter: (filter) => dispatch(actions.setIPAddressTradeDataFilter(filter))
     }
 };
 

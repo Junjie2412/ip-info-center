@@ -4,13 +4,18 @@ import Form from 'react-bootstrap/Form';
 
 const IPICDropdown = (props) => {
 
+    const focusInput = () => {
+        let input = document.getElementById(props.header);
+        input.focus();
+    };
+
     let checkList = props.list.map(item => (
-        <div key={item.name} className={"DropdownOptions"}>
+        <div key={item} className={"DropdownOptions"} style={props.filter ? {display: (item.toString().toLowerCase().includes(props.filter) ? "block" : "none")} : {display: "block"}}>
             <Form.Check
                 type={"checkbox"}
-                id={item.name}
-                label={item.name}
-                checked={props.checked}
+                id={item}
+                label={item}
+                onChange={(event) => props.handleCheck(event, item)}
             >
             </Form.Check>
         </div>
@@ -21,8 +26,16 @@ const IPICDropdown = (props) => {
             <div className="IPICDropdownHeader">
                 <h5>{props.header}</h5>
             </div>
-            <input type="text" placeholder={props.placeholder} className="IPICDropdownInput" value={props.value} onClick={props.onClickSearch}/>
-            <div className="IPICDropdownContent" style={props.show ? {display: "block"}:{display: "none"}}>
+            <input
+                type="text"
+                placeholder={props.placeholder}
+                className="IPICDropdownInput"
+                value={props.filter}
+                id={props.header}
+                onChange={props.setFilter}
+                autoComplete={"off"}
+            />
+            <div className="IPICDropdownContent" onClick={focusInput}>
                 {checkList}
             </div>
         </div>

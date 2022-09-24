@@ -2,48 +2,45 @@ import * as actionTypes from '../actions/actionTypes';
 import {updateObject} from '../../shared/utility';
 import { addDays } from 'date-fns';
 import {countries} from "../../shared/countries";
-import {accounts} from "../../shared/accounts";
-import {ipaddresses} from "../../shared/ipaddresses";
+import {geolocationDatabase} from "../../shared/geolocationDatabase";
 
 const initialState = {
-    showAccountNameDropdown: false,
-    showRiskLevelDropdown: false,
-    showCountriesDropdown: false,
-    showIPAddressesDropdown: false,
-    riskLevels: [
-        {name: "High"},
-        {name: "Medium"},
-        {name: "Low"}
-    ],
-    accountNamesAndNumbers: accounts,
-    countries: countries,
-    ipaddresses: ipaddresses,
+    riskLevels: ["High","Medium","Low"],
+    riskLevelFilter: "",
+    accountNamesAndNumbers: geolocationDatabase.map((entry) => (entry.name+" ("+entry.account_number+")")).sort(),
+    accountNamesAndNumbersFilter: "",
+    countries: countries.map((entry) => (entry.name)).sort(),
+    locationFilter: "",
+    ipaddresses: geolocationDatabase.map((entry) => entry.ip_address).sort(),
+    ipAddressFilter: "",
     startDate: new Date(),
-    endDate: addDays(new Date(), 7)
+    endDate: addDays(new Date(), 7),
+    geoMarkers: geolocationDatabase,
+    currentMarker: ""
 };
 
-const showAccountNameDropdown = (state, action) => {
+const setAccountNamesAndNumbersFilter = (state, action) => {
     return updateObject( state, {
-        showAccountNameDropdown: action.show
-    });
+        accountNamesAndNumbersFilter: action.filter
+    })
 };
 
-const showRiskLevelDropdown = (state, action) => {
+const setRiskLevelFilter = (state, action) => {
     return updateObject( state, {
-        showRiskLevelDropdown: action.show
-    });
+        riskLevelFilter: action.filter
+    })
 };
 
-const showCountriesDropdown = (state, action) => {
+const setLocationFilter = (state, action) => {
     return updateObject( state, {
-        showCountriesDropdown: action.show
-    });
+        locationFilter: action.filter
+    })
 };
 
-const showIPAddressesDropdown = (state, action) => {
+const setIPAddressFilter = (state, action) => {
     return updateObject( state, {
-        showIPAddressesDropdown: action.show
-    });
+        ipAddressFilter: action.filter
+    })
 };
 
 const setGeolocationStartDate = (state, action) => {
@@ -58,15 +55,22 @@ const setGeolocationEndDate = (state, action) => {
     })
 };
 
+const setCurrentMarker = (state, action) => {
+    return updateObject( state, {
+        currentMarker: action.marker
+    })
+};
+
 const reducer = ( state = initialState, action ) =>
 {
     switch (action.type) {
-        case actionTypes.SHOW_ACCOUNT_NAME_DROPDOWN: return showAccountNameDropdown(state, action);
-        case actionTypes.SHOW_RISK_LEVEL_DROPDOWN: return showRiskLevelDropdown(state, action);
-        case actionTypes.SHOW_COUNTRIES_DROPDOWN: return showCountriesDropdown(state, action);
-        case actionTypes.SHOW_IP_ADDRESSES_DROPDOWN: return showIPAddressesDropdown(state, action);
         case actionTypes.SET_GEOLOCATION_START_DATE: return setGeolocationStartDate(state, action);
         case actionTypes.SET_GEOLOCATION_END_DATE: return setGeolocationEndDate(state, action);
+        case actionTypes.SET_CURRENT_MARKER: return setCurrentMarker(state, action);
+        case actionTypes.SET_ACCOUNT_NAMES_AND_NUMBERS_FILTER: return setAccountNamesAndNumbersFilter(state, action);
+        case actionTypes.SET_RISK_LEVEL_FILTER: return setRiskLevelFilter(state, action);
+        case actionTypes.SET_LOCATION_FILTER: return setLocationFilter(state, action);
+        case actionTypes.SET_IP_ADDRESS_FILTER: return setIPAddressFilter(state, action);
         default:
             return state;
     }

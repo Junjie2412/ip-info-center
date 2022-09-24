@@ -1,33 +1,5 @@
 import * as actionTypes from './actionTypes';
 
-export const showAccountNameDropdown = (show) => {
-    return {
-        type: actionTypes.SHOW_ACCOUNT_NAME_DROPDOWN,
-        show: show
-    }
-};
-
-export const showRiskLevelDropdown = (show) => {
-    return {
-        type: actionTypes.SHOW_RISK_LEVEL_DROPDOWN,
-        show: show
-    }
-};
-
-export const showCountriesDropdown = (show) => {
-    return {
-        type: actionTypes.SHOW_COUNTRIES_DROPDOWN,
-        show: show
-    }
-};
-
-export const showIPAddressesDropdown = (show) => {
-    return {
-        type: actionTypes.SHOW_IP_ADDRESSES_DROPDOWN,
-        show: show
-    }
-};
-
 export const setGeolocationStartDate = (date) => {
     return {
         type: actionTypes.SET_GEOLOCATION_START_DATE,
@@ -40,4 +12,39 @@ export const setGeolocationEndDate = (date) => {
         type: actionTypes.SET_GEOLOCATION_END_DATE,
         date: date
     }
-}
+};
+
+export const setCurrentMarker = (marker) => {
+    return {
+        type: actionTypes.SET_CURRENT_MARKER,
+        marker: marker
+    }
+};
+
+export const setAccountNamesAndNumbersFilter = (filter) => {
+    return {
+        type: actionTypes.SET_ACCOUNT_NAMES_AND_NUMBERS_FILTER,
+        filter: filter
+    }
+};
+
+export const setRiskLevelFilter = (filter) => {
+    return {
+        type: actionTypes.SET_RISK_LEVEL_FILTER,
+        filter: filter
+    }
+};
+
+export const setLocationFilter = (filter) => {
+    return {
+        type: actionTypes.SET_LOCATION_FILTER,
+        filter: filter
+    }
+};
+
+export const setIPAddressFilter = (filter) => {
+    return {
+        type: actionTypes.SET_IP_ADDRESS_FILTER,
+        filter: filter
+    }
+};

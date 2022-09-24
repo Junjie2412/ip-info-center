@@ -15,44 +15,19 @@ class GeolocationPage extends Component {
     componentDidMount() {
         this.props.onSetCurrentTab("Geolocation Data");
         this.props.onShowGeolocationTab(true);
-        this.props.onShowTradeDataTab(true);
     }
-
-    toggleAccountNameDropdown = () => {
-        if(this.props.showAccountNameDropdown===true) {
-            this.props.onShowAccountNameDropdown(false);
-        }else{
-            this.props.onShowAccountNameDropdown(true);
-        }
-    };
-
-    toggleRiskLevelDropdown = () => {
-        if(this.props.showRiskLevelDropdown===true) {
-            this.props.onShowRiskLevelDropdown(false);
-        }else{
-            this.props.onShowRiskLevelDropdown(true);
-        }
-    };
-
-    toggleCountriesDropdown = () => {
-        if(this.props.showCountriesDropdown===true) {
-            this.props.onShowCountriesDropdown(false);
-        }else{
-            this.props.onShowCountriesDropdown(true);
-        }
-    };
-
-    toggleIPAddressesDropdown = () => {
-        if(this.props.showIPAddressesDropdown===true) {
-            this.props.onShowIPAddressesDropdown(false);
-        }else{
-            this.props.onShowIPAddressesDropdown(true);
-        }
-    };
 
     updateDateSelection = (dateRanges) => {
         this.props.onSetStartDate(dateRanges.startDate);
         this.props.onSetEndDate(dateRanges.endDate);
+    };
+
+    handleCheck = (event, item) => {
+        if (event.target.checked) {
+            console.log(item); //Add item to a filter list
+        } else {
+            console.log("NO "+item)//Remove item from a filtered list
+        }
     };
 
     render () {
@@ -68,8 +43,9 @@ class GeolocationPage extends Component {
                                 header={"Account Name and Number"}
                                 placeholder={"Search and Select"}
                                 list={this.props.accountNamesAndNumbers}
-                                show={this.props.showAccountNameDropdown}
-                                onClickSearch={()=>this.toggleAccountNameDropdown()}
+                                filter={this.props.accountNamesAndNumbersFilter}
+                                setFilter={(event)=>this.props.onSetAccountNamesAndNumbersFilter(event.target.value)}
+                                handleCheck={this.handleCheck}
                             />
                         </div>
                         <div>
@@ -87,8 +63,8 @@ class GeolocationPage extends Component {
                                 header={"Risk Level"}
                                 placeholder={"Search and Select"}
                                 list={this.props.riskLevels}
-                                show={this.props.showRiskLevelDropdown}
-                                onClickSearch={(event)=>this.toggleRiskLevelDropdown()}
+                                filter={this.props.riskLevelFilter}
+                                setFilter={(event)=>this.props.onSetRiskLevelFilter(event.target.value)}
                             />
                         </div>
                     </div>
@@ -98,8 +74,8 @@ class GeolocationPage extends Component {
                                 header={"Location"}
                                 placeholder={"Search and Select"}
                                 list={this.props.countries}
-                                show={this.props.showCountriesDropdown}
-                                onClickSearch={()=>this.toggleCountriesDropdown()}
+                                filter={this.props.locationFilter}
+                                setFilter={(event)=>this.props.onSetLocationFilter(event.target.value)}
                             />
                         </div>
                         <div>
@@ -107,8 +83,8 @@ class GeolocationPage extends Component {
                                 header={"IP Addresses"}
                                 placeholder={"Search and Select"}
                                 list={this.props.ipaddresses}
-                                show={this.props.showIPAddressesDropdown}
-                                onClickSearch={()=>this.toggleIPAddressesDropdown()}
+                                filter={this.props.ipAddressFilter}
+                                setFilter={(event)=>this.props.onSetIPAddressFilter(event.target.value)}
                             />
                         </div>
                         <div>
@@ -126,7 +102,11 @@ class GeolocationPage extends Component {
                         </div>
                     </div>
                     <div className={"googleMapsContainer"}>
-                        <IPICGoogleMaps/>
+                        <IPICGoogleMaps
+                            markers={this.props.geoMarkers}
+                            setCurrentMarker={this.props.onSetCurrentMarker}
+                            currentMarker={this.props.currentMarker}
+                        />
                     </div>
                 </div>
             </Aux>
@@ -140,26 +120,28 @@ const mapStateToProps = state => {
         riskLevels: state.geolocationReducer.riskLevels,
         accountNamesAndNumbers: state.geolocationReducer.accountNamesAndNumbers,
         ipaddresses: state.geolocationReducer.ipaddresses,
-        showAccountNameDropdown: state.geolocationReducer.showAccountNameDropdown,
-        showRiskLevelDropdown: state.geolocationReducer.showRiskLevelDropdown,
-        showCountriesDropdown: state.geolocationReducer.showCountriesDropdown,
-        showIPAddressesDropdown: state.geolocationReducer.showIPAddressesDropdown,
         startDate: state.geolocationReducer.startDate,
-        endDate: state.geolocationReducer.endDate
+        endDate: state.geolocationReducer.endDate,
+        geoMarkers: state.geolocationReducer.geoMarkers,
+        currentMarker: state.geolocationReducer.currentMarker,
+        accountNamesAndNumbersFilter: state.geolocationReducer.accountNamesAndNumbersFilter,
+        riskLevelFilter: state.geolocationReducer.riskLevelFilter,
+        locationFilter: state.geolocationReducer.locationFilter,
+        ipAddressFilter: state.geolocationReducer.ipAddressFilter
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
         onSetCurrentTab: (tab) => dispatch(actions.setCurrentTab(tab)),
-        onShowAccountNameDropdown: (show) => dispatch(actions.showAccountNameDropdown(show)),
-        onShowRiskLevelDropdown: (show) => dispatch(actions.showRiskLevelDropdown(show)),
-        onShowCountriesDropdown: (show) => dispatch(actions.showCountriesDropdown(show)),
-        onShowIPAddressesDropdown: (show) => dispatch(actions.showIPAddressesDropdown(show)),
         onSetStartDate: (date) => dispatch(actions.setGeolocationStartDate(date)),
         onSetEndDate: (date) => dispatch(actions.setGeolocationEndDate(date)),
         onShowGeolocationTab: (show) => dispatch(actions.showGeolocationTab(show)),
-        onShowTradeDataTab: (show) => dispatch(actions.showTradeDataTab(show))
+        onSetCurrentMarker: (marker) => dispatch(actions.setCurrentMarker(marker)),
+        onSetAccountNamesAndNumbersFilter: (filter) => dispatch(actions.setAccountNamesAndNumbersFilter(filter)),
+        onSetRiskLevelFilter: (filter) => dispatch(actions.setRiskLevelFilter(filter)),
+        onSetLocationFilter: (filter) => dispatch(actions.setLocationFilter(filter)),
+        onSetIPAddressFilter: (filter) => dispatch(actions.setIPAddressFilter(filter))
     }
 };
 

@@ -15,12 +15,7 @@
 }
 
 .UploadFilesButton button:active {
-    border: none;
     background: darkblue;
-    cursor: pointer;
-    padding: 15px 15px;
-    font-size: inherit;
-    color: white;
     transform: translateY(2px);
 }
 

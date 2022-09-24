@@ -16,7 +16,7 @@
     border-bottom: 1px solid #ddd;
 }
 
-.IPICDropdownInput:focus {outline: 3px solid #ddd;}
+.IPICDropdownInput:focus, .IPICDropdownInput:active {outline: 1px solid #ddd;}
 
 .IPICDropdownContent {
     position: absolute;
@@ -25,9 +25,10 @@
     overflow: auto;
     border: 1px solid #ddd;
     z-index: 1;
-    display: block;
+    display: none;
     max-height: 200px;
     overflow-y: scroll;
+    background-color: white;
 }
 
 .IPICDropdownContent div > div {
@@ -46,5 +47,17 @@
 
 .DropdownOptions {
     background-color: white;
-    height: 29px;
+    min-height: 29px;
+}
+
+.IPICDropdownInput:focus + .IPICDropdownContent {
+    display: block
+}
+
+.IPICDropdownContent:focus {
+    display: block;
+}
+
+.IPICDropdownContent:hover {
+    display: block;
 }

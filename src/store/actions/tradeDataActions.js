@@ -1,15 +1,29 @@
 import * as actionTypes from './actionTypes';
 
-export const showIPAddressesTradeDataDropdown = (show) => {
+export const setAccountNamesAndNumbersTradeDataFilter = (filter) => {
     return {
-        type: actionTypes.SHOW_IP_ADDRESSES_TRADE_DATA_DROPDOWN,
-        show: show
+        type: actionTypes.SET_ACCOUNT_NAMES_AND_NUMBERS_TRADE_DATA_FILTER,
+        filter: filter
     }
 };
 
-export const showAccountNameTradeDataDropdown = (show) => {
+export const setIPAddressTradeDataFilter = (filter) => {
     return {
-        type: actionTypes.SHOW_ACCOUNT_NAME_TRADE_DATA_DROPDOWN,
-        show: show
+        type: actionTypes.SET_IP_ADDRESS_TRADE_DATA_FILTER,
+        filter: filter
     }
-}
+};
+
+export const setTradeDataStartDate = (date) => {
+    return {
+        type: actionTypes.SET_TRADE_DATA_START_DATE,
+        date: date
+    }
+};
+
+export const setTradeDataEndDate = (date) => {
+    return {
+        type: actionTypes.SET_TRADE_DATA_END_DATE,
+        date: date
+    }
+};
