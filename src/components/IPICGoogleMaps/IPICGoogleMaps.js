@@ -81,7 +81,7 @@ const IPICGoogleMaps = (props) => {
             {(!isLoaded) ? <div>Loading...</div> :
                 <Aux>
                     <div className={"ipicMapContainer"}>
-                        <GoogleMap zoom={3} center={center} mapContainerClassName={"map-container"}>
+                        <GoogleMap zoom={3} center={props.center ? props.center : center} mapContainerClassName={"map-container"}>
                             {homeMarkers}
                             {ipMarkers}
                             {polyLines}
@@ -97,26 +97,26 @@ const IPICGoogleMaps = (props) => {
 
             <Offcanvas scroll show={show} onHide={handleClose} backdrop={false} placement={"end bottom"} style={{backgroundColor: "#e9ecef", height: "350px", marginTop: "230px", border: "2px solid #bbb"}} >
                 <Offcanvas.Header closeButton>
-                    <Offcanvas.Title>{props.currentMarker.ip_address}</Offcanvas.Title>
+                    <Offcanvas.Title>{props.currentMarker ? props.currentMarker.ip_address : ""}</Offcanvas.Title>
                 </Offcanvas.Header>
                 {props.currentMarker ? <Offcanvas.Body>
                     <p>
-                        <b>Risk Score:</b> {props.currentMarker.risk_score}
+                        <b>Risk Score:</b> {props.currentMarker ? props.currentMarker.risk_score : ""}
                     </p>
                     <p>
-                        <b>Account Number:</b> {props.currentMarker.account_number}
+                        <b>Account Number:</b> {props.currentMarker ? props.currentMarker.account_number : ""}
                     </p>
                     <p>
-                        <b>Name:</b> {props.currentMarker.name}
+                        <b>Name:</b> {props.currentMarker ?  props.currentMarker.name: ""}
                     </p>
                     <p>
-                        <b>Home Location:</b> {props.currentMarker.address}
+                        <b>Home Location:</b> {props.currentMarker ?  props.currentMarker.address : ""}
                     </p>
                     <p>
-                        <b>Geolocation:</b> {props.currentMarker.ip_country.toString()}
+                        <b>Geolocation:</b> {props.currentMarker ?  props.currentMarker.ip_country.toString() : ""}
                     </p>
                     <p>
-                        <b>Reason:</b> {props.currentMarker.risk_reason}
+                        <b>Reason:</b> {props.currentMarker ?  props.currentMarker.risk_reason : ""}
                     </p>
                 </Offcanvas.Body> : ""}
             </Offcanvas>

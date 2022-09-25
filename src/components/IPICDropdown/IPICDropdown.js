@@ -15,6 +15,7 @@ const IPICDropdown = (props) => {
                 type={"checkbox"}
                 id={item}
                 label={item}
+                checked={props.filterList ? props.filterList.includes(item) : false}
                 onChange={(event) => props.handleCheck(event, item)}
             >
             </Form.Check>

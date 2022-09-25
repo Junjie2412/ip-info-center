@@ -15,6 +15,7 @@ class GeolocationPage extends Component {
     componentDidMount() {
         this.props.onSetCurrentTab("Geolocation Data");
         this.props.onShowGeolocationTab(true);
+        this.props.onSetCenter();
     }
 
     updateDateSelection = (dateRanges) => {
@@ -22,12 +23,52 @@ class GeolocationPage extends Component {
         this.props.onSetEndDate(dateRanges.endDate);
     };
 
-    handleCheck = (event, item) => {
+    handleAccountNamesAndNumbersCheck = (event, item) => {
         if (event.target.checked) {
-            console.log(item); //Add item to a filter list
+            this.props.onAddToAccountNamesAndNumbersFilterList(item);
         } else {
-            console.log("NO "+item)//Remove item from a filtered list
+            this.props.onRemoveFromAccountNamesAndNumbersFilterList(item);
         }
+        this.forceUpdate();
+    };
+
+    handleRiskLevelCheck = (event, item) => {
+        if (event.target.checked) {
+            this.props.onAddToRiskLevelFilterList(item);
+        } else {
+            this.props.onRemoveFromRiskLevelFilterList(item);
+        }
+        this.forceUpdate();
+    };
+
+    handleLocationCheck = (event, item) => {
+        if (event.target.checked) {
+            this.props.onAddToLocationFilterList(item);
+        } else {
+            this.props.onRemoveFromLocationFilterList(item);
+        }
+        this.forceUpdate();
+    };
+
+    handleIPAddressCheck = (event, item) => {
+        if (event.target.checked) {
+            this.props.onAddToIPAddressFilterList(item);
+        } else {
+            this.props.onRemoveFromIPAddressFilterList(item);
+        }
+        this.forceUpdate();
+    };
+
+    reset = () => {
+        this.props.onReset();
+        this.props.onSetCenter();
+        this.forceUpdate();
+    };
+
+    apply = () => {
+        this.props.onApply();
+        this.props.onSetCenter();
+        this.forceUpdate();
     };
 
     render () {
@@ -45,7 +86,8 @@ class GeolocationPage extends Component {
                                 list={this.props.accountNamesAndNumbers}
                                 filter={this.props.accountNamesAndNumbersFilter}
                                 setFilter={(event)=>this.props.onSetAccountNamesAndNumbersFilter(event.target.value)}
-                                handleCheck={this.handleCheck}
+                                filterList={this.props.accountNamesAndNumbersFilterList}
+                                handleCheck={this.handleAccountNamesAndNumbersCheck}
                             />
                         </div>
                         <div>
@@ -65,6 +107,8 @@ class GeolocationPage extends Component {
                                 list={this.props.riskLevels}
                                 filter={this.props.riskLevelFilter}
                                 setFilter={(event)=>this.props.onSetRiskLevelFilter(event.target.value)}
+                                filterList={this.props.riskLevelFilterList}
+                                handleCheck={this.handleRiskLevelCheck}
                             />
                         </div>
                     </div>
@@ -76,6 +120,8 @@ class GeolocationPage extends Component {
                                 list={this.props.countries}
                                 filter={this.props.locationFilter}
                                 setFilter={(event)=>this.props.onSetLocationFilter(event.target.value)}
+                                filterList={this.props.locationFilterList}
+                                handleCheck={this.handleLocationCheck}
                             />
                         </div>
                         <div>
@@ -85,14 +131,16 @@ class GeolocationPage extends Component {
                                 list={this.props.ipaddresses}
                                 filter={this.props.ipAddressFilter}
                                 setFilter={(event)=>this.props.onSetIPAddressFilter(event.target.value)}
+                                filterList={this.props.ipAddressFilterList}
+                                handleCheck={this.handleIPAddressCheck}
                             />
                         </div>
                         <div>
                             <div className="GeolocationButton">
-                                <IPICButton label={"APPLY"} type={"blue"}/>
+                                <IPICButton label={"APPLY"} type={"blue"} onClick={this.apply}/>
                             </div>
                             <div className="GeolocationButton">
-                                <IPICButton label={"RESET"} type={"white"}/>
+                                <IPICButton label={"RESET"} type={"white"} onClick={this.reset}/>
                             </div>
                         </div>
                     </div>
@@ -106,6 +154,7 @@ class GeolocationPage extends Component {
                             markers={this.props.geoMarkers}
                             setCurrentMarker={this.props.onSetCurrentMarker}
                             currentMarker={this.props.currentMarker}
+                            center={{ lat: parseFloat(this.props.center.split(",")[0]), lng: parseFloat(this.props.center.split(",")[1])}}
                         />
                     </div>
                 </div>
@@ -127,7 +176,12 @@ const mapStateToProps = state => {
         accountNamesAndNumbersFilter: state.geolocationReducer.accountNamesAndNumbersFilter,
         riskLevelFilter: state.geolocationReducer.riskLevelFilter,
         locationFilter: state.geolocationReducer.locationFilter,
-        ipAddressFilter: state.geolocationReducer.ipAddressFilter
+        ipAddressFilter: state.geolocationReducer.ipAddressFilter,
+        accountNamesAndNumbersFilterList: state.geolocationReducer.accountNamesAndNumbersFilterList,
+        riskLevelFilterList: state.geolocationReducer.riskLevelFilterList,
+        locationFilterList: state.geolocationReducer.locationFilterList,
+        ipAddressFilterList: state.geolocationReducer.ipAddressFilterList,
+        center: state.geolocationReducer.center
     };
 };
 
@@ -141,7 +195,18 @@ const mapDispatchToProps = dispatch => {
         onSetAccountNamesAndNumbersFilter: (filter) => dispatch(actions.setAccountNamesAndNumbersFilter(filter)),
         onSetRiskLevelFilter: (filter) => dispatch(actions.setRiskLevelFilter(filter)),
         onSetLocationFilter: (filter) => dispatch(actions.setLocationFilter(filter)),
-        onSetIPAddressFilter: (filter) => dispatch(actions.setIPAddressFilter(filter))
+        onSetIPAddressFilter: (filter) => dispatch(actions.setIPAddressFilter(filter)),
+        onAddToAccountNamesAndNumbersFilterList: (item) => dispatch(actions.addToAccountNamesAndNumbersFilterList(item)),
+        onRemoveFromAccountNamesAndNumbersFilterList: (item) => dispatch(actions.removeFromAccountNamesAndNumbersFilterList(item)),
+        onAddToRiskLevelFilterList: (item) => dispatch(actions.addToRiskLevelFilterList(item)),
+        onRemoveFromRiskLevelFilterList: (item) => dispatch(actions.removeFromRiskLevelFilterList(item)),
+        onAddToLocationFilterList: (item) => dispatch(actions.addToLocationFilterList(item)),
+        onRemoveFromLocationFilterList: (item) => dispatch(actions.removeFromLocationFilterList(item)),
+        onAddToIPAddressFilterList: (item) => dispatch(actions.addToIPAddressFilterList(item)),
+        onRemoveFromIPAddressFilterList: (item) => dispatch(actions.removeFromIPAddressFilterList(item)),
+        onReset: () => dispatch(actions.resetGeolocationPage()),
+        onApply: () => dispatch(actions.applyGeolocationFilters()),
+        onSetCenter: () => dispatch(actions.setCenter())
     }
 };
 

@@ -8,7 +8,7 @@ export const geolocationDatabase = [
         ip_country:"Ghana",
         risk_score:850,
         risk_reason:"High Risk Country",
-        risk_label:"High"
+        risk_label:"Medium"
     },
     {
         account_number:700000000,
@@ -48,10 +48,10 @@ export const geolocationDatabase = [
         name:"Jack Orion",
         ip_address:"154.160.23.27",
         cust_coordinates:"34.20732,-84.1402",
-        ip_coordinates:"5.5560,-0.1969",
+        ip_coordinates:"30.5595,-22.9375",
         ip_country:["Ghana(1)","United States(5)"],
         risk_score:850,
         risk_reason:"High Risk Country",
-        risk_label:"High"
+        risk_label:"Medium"
     }
 ];
