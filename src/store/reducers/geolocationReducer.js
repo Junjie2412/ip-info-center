@@ -22,7 +22,15 @@ const initialState = {
     geoMarkersFullList: geolocationDatabase,
     geoMarkers: geolocationDatabase,
     currentMarker: "",
-    center: ""
+    center: "",
+    exportHeaders: [
+        { label: "Account Name", key: "name" },
+        { label: "Date of Birth", key: "dob" },
+        { label: "Phone Number", key: "homephone" },
+        { label: "Address", key: "street" },
+        { label: "State", key: "state"},
+        { label: "Firm", key: "firmname"}
+        ]
 };
 
 const setAccountNamesAndNumbersFilter = (state, action) => {
@@ -133,6 +141,8 @@ const resetGeolocationPage = (state) => {
         accountNamesAndNumbersFilterList: [],
         locationFilterList: [],
         ipAddressFilterList: [],
+        startDate: new Date(),
+        endDate: addDays(new Date(), 7),
         geoMarkers: geolocationDatabase
     })
 };
@@ -169,7 +179,6 @@ const setCenter = (state)  => {
     }
     lat=lat/(state.geoMarkers.length*2);
     long =long/(state.geoMarkers.length*2);
-    console.log(lat+","+long);
     return updateObject( state, {
         center: lat+","+long
     })

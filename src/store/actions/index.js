@@ -27,9 +27,15 @@ export {
 
 export {
     setAccountNamesAndNumbersTradeDataFilter,
+    addToAccountNamesAndNumbersFilterTradeDataList,
+    removeFromAccountNamesAndNumbersFilterTradeDataList,
     setIPAddressTradeDataFilter,
+    addToIPAddressFilterTradeDataList,
+    removeFromIPAddressFilterTradeDataList,
     setTradeDataEndDate,
-    setTradeDataStartDate
+    setTradeDataStartDate,
+    resetTradeDataPage,
+    applyTradeDataFilters
 } from './tradeDataActions'
 
 export {

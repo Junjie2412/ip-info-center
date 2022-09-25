@@ -21,6 +21,32 @@ class TradeDataPage extends Component {
         this.props.onSetEndDate(dateRanges.endDate);
     };
 
+    handleAccountNamesAndNumbersCheck = (event, item) => {
+        if (event.target.checked) {
+            this.props.onAddToAccountNamesAndNumbersFilterList(item);
+        } else {
+            this.props.onRemoveFromAccountNamesAndNumbersFilterList(item);
+        }
+        this.forceUpdate();
+    };
+
+    handleIPAddressCheck = (event, item) => {
+        if (event.target.checked) {
+            this.props.onAddToIPAddressFilterList(item);
+        } else {
+            this.props.onRemoveFromIPAddressFilterList(item);
+        }
+        this.forceUpdate();
+    };
+
+    handleApply = () => {
+        this.props.onApplyFilters();
+    };
+
+    handleReset = () => {
+        this.props.onResetPage()
+    };
+
     render () {
 
         return (
@@ -47,6 +73,8 @@ class TradeDataPage extends Component {
                                 list={this.props.ipaddresses}
                                 filter={this.props.ipAddressFilter}
                                 setFilter={(event)=>this.props.onSetIPAddressFilter(event.target.value)}
+                                filterList={this.props.accountNamesAndNumbersFilterList}
+                                handleCheck={this.handleAccountNamesAndNumbersCheck}
                             />
                         </div>
                         <div>
@@ -56,15 +84,17 @@ class TradeDataPage extends Component {
                                 list={this.props.accountNamesAndNumbers}
                                 filter={this.props.accountNamesAndNumbersFilter}
                                 setFilter={(event)=>this.props.onSetAccountNamesAndNumbersFilter(event.target.value)}
+                                filterList={this.props.ipAddressFilterList}
+                                handleCheck={this.handleIPAddressCheck}
                             />
                         </div>
                     </div>
                     <div className={"TradeDataButtonGroup"}>
                         <div className="TradeDataButton">
-                            <IPICButton label={"APPLY"} type={"blue"}/>
+                            <IPICButton label={"APPLY"} type={"blue"} onClick={this.handleApply}/>
                         </div>
                         <div className="TradeDataButton">
-                            <IPICButton label={"RESET"} type={"white"}/>
+                            <IPICButton label={"RESET"} type={"white"} onClick={this.handleReset}/>
                         </div>
                     </div>
                 </div>
@@ -80,7 +110,9 @@ const mapStateToProps = state => {
         startDate: state.tradeDataReducer.startDate,
         endDate: state.tradeDataReducer.endDate,
         accountNamesAndNumbersFilter: state.tradeDataReducer.accountNamesAndNumbersFilter,
-        ipAddressFilter: state.tradeDataReducer.ipAddressFilter
+        accountNamesAndNumbersFilterList: state.tradeDataReducer.accountNamesAndNumbersFilterList,
+        ipAddressFilter: state.tradeDataReducer.ipAddressFilter,
+        ipAddressFilterList: state.tradeDataReducer.ipAddressFilterList
     };
 };
 
@@ -91,7 +123,13 @@ const mapDispatchToProps = dispatch => {
         onSetEndDate: (date) => dispatch(actions.setTradeDataEndDate(date)),
         onShowTradeDataTab: (show) => dispatch(actions.showTradeDataTab(show)),
         onSetAccountNamesAndNumbersFilter: (filter) => dispatch(actions.setAccountNamesAndNumbersTradeDataFilter(filter)),
-        onSetIPAddressFilter: (filter) => dispatch(actions.setIPAddressTradeDataFilter(filter))
+        onAddToAccountNamesAndNumbersFilterList: (item) => dispatch(actions.addToAccountNamesAndNumbersFilterTradeDataList(item)),
+        onRemoveFromAccountNamesAndNumbersFilterList: (item) => dispatch(actions.removeFromAccountNamesAndNumbersFilterTradeDataList(item)),
+        onSetIPAddressFilter: (filter) => dispatch(actions.setIPAddressTradeDataFilter(filter)),
+        onAddToIPAddressFilterList: (item) => dispatch(actions.addToIPAddressFilterTradeDataList(item)),
+        onRemoveFromIPAddressFilterList: (item) => dispatch(actions.removeFromIPAddressFilterTradeDataList(item)),
+        onResetPage: () => dispatch(actions.resetTradeDataPage()),
+        onApplyFilters: () => dispatch(actions.applyTradeDataFilters())
     }
 };
 

@@ -38,6 +38,31 @@
     margin: 0 0 0 900px;
 }
 
+.csvLink {
+    text-decoration: none;
+    cursor: pointer;
+    display: inline-block;
+    width: 150px;
+    border: none;
+    background-color: transparent;
+    color: white;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    outline: none;
+    float: right;
+}
+
+.csvLink:hover, .clearFiltersButton:hover {
+    font-weight: normal;
+    color: white;
+}
+
+.csvLink:active, .clearFiltersButton:active {
+    transform: translateY(2px);
+    outline: none;
+}
+
 @media only screen and (max-width: 1280px) {
 
     .GeolocationDropdownGroup > div {

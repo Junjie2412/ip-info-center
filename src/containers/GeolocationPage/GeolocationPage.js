@@ -9,6 +9,7 @@ import {format} from 'date-fns';
 import IPICButton from "../../components/IPICButton/IPICButton";
 import UploadFilesButton from "../../components/UploadFilesButton/UploadFilesButton";
 import IPICGoogleMaps from "../../components/IPICGoogleMaps/IPICGoogleMaps";
+import { CSVLink } from "react-csv";
 
 class GeolocationPage extends Component {
 
@@ -72,6 +73,7 @@ class GeolocationPage extends Component {
     };
 
     render () {
+
         return (
             <Aux>
                 <div className={"GeolocationPage"}>
@@ -146,7 +148,9 @@ class GeolocationPage extends Component {
                     </div>
                     <div className="GeolocationExportButton">
                         <div>
-                            <IPICButton label={"EXPORT"} type={"blue"}/>
+                            <CSVLink data={this.props.geoMarkers}>
+                                <IPICButton label={"EXPORT"} type={"blue"}/>
+                            </CSVLink>
                         </div>
                     </div>
                     <div className={"googleMapsContainer"}>
@@ -181,7 +185,8 @@ const mapStateToProps = state => {
         riskLevelFilterList: state.geolocationReducer.riskLevelFilterList,
         locationFilterList: state.geolocationReducer.locationFilterList,
         ipAddressFilterList: state.geolocationReducer.ipAddressFilterList,
-        center: state.geolocationReducer.center
+        center: state.geolocationReducer.center,
+        exportHeaders: state.geolocationReducer.exportHeaders
     };
 };
 
