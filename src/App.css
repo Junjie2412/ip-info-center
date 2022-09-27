@@ -1,5 +1,13 @@
 .AppMainPage {
     padding: 0;
-    background-color: #c6d9f7;
     font-family: "Open Sans", sans-serif;
+}
+
+.DarkMode {
+    background-color: #222736 !important;
+    color: white !important;
+}
+
+.HeaderDarkMode {
+    background-color: #1D6984 !important;
 }

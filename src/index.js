@@ -12,6 +12,7 @@ import searchReducer from './store/reducers/uploadFilesReducer';
 import tabReducer from './store/reducers/tabReducer';
 import geolocationReducer from './store/reducers/geolocationReducer';
 import tradeDataReducer from "./store/reducers/tradeDataReducer";
+import darkModeReducer from "./store/reducers/darkModeReducer";
 
 const composeEnhancers = compose;
 
@@ -20,7 +21,8 @@ const rootReducer = combineReducers({
     tabReducer: tabReducer,
     geolocationReducer: geolocationReducer,
     tradeDataReducer: tradeDataReducer,
-    uploadFilesReducer: searchReducer
+    uploadFilesReducer: searchReducer,
+    darkModeReducer: darkModeReducer
 });
 
 const store = createStore(rootReducer, composeEnhancers (

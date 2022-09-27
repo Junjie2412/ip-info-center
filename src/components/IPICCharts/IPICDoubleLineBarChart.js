@@ -34,7 +34,10 @@ const IPICDoubleLineBarChart = (props) => {
                 }
             },
             title: {
-                text: props.title
+                text: props.title,
+                style: {
+                    color: props.darkMode ? "white" : ""
+                }
             },
             fill: {
                 opacity: [0.85, 0.25, 1],
@@ -56,14 +59,27 @@ const IPICDoubleLineBarChart = (props) => {
             xaxis: {
                 type: 'datetime',
                 title: {
-                    text: props.xaxistitle
-                }
+                    text: props.xaxistitle,
+                    style: {
+                        color: props.darkMode ? "white" : ""
+                    }
+                },
+                labels: {
+                    style: {
+                        colors: props.darkMode ? "white" : ""
+                    }
+                },
             },
             yaxis: {
                 title: {
-                    text: props.yaxistitle,
+                    text: props.yaxistitle
                 },
-                min: 0
+                min: 0,
+                labels: {
+                    style: {
+                        colors: props.darkMode ? "white" : ""
+                    }
+                }
             },
             tooltip: {
                 shared: true,
@@ -76,6 +92,13 @@ const IPICDoubleLineBarChart = (props) => {
                         return y;
 
                     }
+                },
+                theme: props.darkMode ? "dark" : "light"
+            },
+            legend: {
+                labels: {
+                    colors: props.darkMode ? "white" : "",
+                    useSeriesColors: false
                 }
             }
         }

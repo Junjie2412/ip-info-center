@@ -1,8 +1,8 @@
 .TradeDataPage {
     background-color: white;
+    /*dark mode color #222736*/
     width: 100%;
-    /*height: calc(100vh - 205px);*/
-    height: 5000px;
+    height: fit-content;
 }
 
 .TradeDataDropdownGroup {
@@ -43,6 +43,10 @@
     margin: 0 20px 20px 0;
     height: 370px;
     vertical-align: top;
+}
+
+.DarkMode .TradeChartGroup > div {
+    box-shadow: rgba(150, 150, 150, 0.35) 0 5px 15px;
 }
 
 @media only screen and (max-width: 1280px) {

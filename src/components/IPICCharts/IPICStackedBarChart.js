@@ -32,7 +32,10 @@ const IPICStackedBarChart = (props) => {
                 }
             },
             title: {
-                text: props.title
+                text: props.title,
+                style: {
+                    color: props.darkMode ? "white" : ""
+                }
             },
             responsive: [{
                 breakpoint: 480,
@@ -56,20 +59,44 @@ const IPICStackedBarChart = (props) => {
                     '01/05/2011 GMT', '01/06/2011 GMT'
                 ],
                 title: {
-                    text: props.xaxistitle
+                    text: props.xaxistitle,
+                    style: {
+                        color: props.darkMode ? "white" : ""
+                    }
+                },
+                labels: {
+                    style: {
+                        colors: props.darkMode ? "white" : ""
+                    }
                 }
             },
             yaxis: {
                 title: {
-                    text: props.yaxistitle
+                    text: props.yaxistitle,
+                    style: {
+                        color: props.darkMode ? "white" : ""
+                    }
+                },
+                labels: {
+                    style: {
+                        colors: props.darkMode ? "white" : ""
+                    }
                 }
             },
             legend: {
                 position: 'right',
-                offsetY: 40
+                offsetY: 40,
+                labels: {
+                    colors: props.darkMode ? "white" : "",
+                    useSeriesColors: false
+                }
             },
             fill: {
                 opacity: 1
+            },
+            tooltip: {
+                enabled: true,
+                theme: props.darkMode ? "dark" : "light"
             }
         }
     };

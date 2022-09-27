@@ -9,7 +9,6 @@ import lowMarker from "../../assets/lowMarker.png";
 import {googleApiKey} from "../../shared/googleApiKey";
 import Offcanvas from 'react-bootstrap/Offcanvas';
 
-
 const IPICGoogleMaps = (props) => {
 
     const { isLoaded } = useLoadScript({
@@ -88,9 +87,9 @@ const IPICGoogleMaps = (props) => {
                         </GoogleMap>
                     </div>
                     <div className={"googleMapsLegend"}>
-                        <div className={"legendValueContainer"}><div className={"legendHigh"}/><p>High</p></div>
-                        <div className={"legendValueContainer"}><div className={"legendMedium"}/><p>Medium</p></div>
-                        <div className={"legendValueContainer"}><div className={"legendLow"}/><p>Low</p></div>
+                        <div className={"legendValueContainer"}><img alt={"...Loading"} src={highMarker} height={25}/><p>High</p></div>
+                        <div className={"legendValueContainer"}><img alt={"...Loading"} src={mediumMarker} height={25}/><p>Medium</p></div>
+                        <div className={"legendValueContainer"}><img alt={"...Loading"} src={lowMarker} height={25}/><p>Low</p></div>
                     </div>
                 </Aux>
             }

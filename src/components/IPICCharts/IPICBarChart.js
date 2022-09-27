@@ -16,7 +16,10 @@ const IPICBarChart = (props) => {
                 type: 'bar',
             },
             title: {
-                text: props.title
+                text: props.title,
+                style: {
+                    color: props.darkMode ? "white" : ""
+                }
             },
             plotOptions: {
                 bar: {
@@ -38,7 +41,10 @@ const IPICBarChart = (props) => {
             },
             xaxis: {
                 labels: {
-                    rotate: -45
+                    rotate: -45,
+                    style: {
+                        colors: props.darkMode ? "white" : ""
+                    }
                 },
                 categories: ['Apples', 'Oranges', 'Strawberries', 'Pineapples', 'Mangoes', 'Bananas',
                     'Blackberries', 'Pears', 'Watermelons', 'Cherries', 'Pomegranates', 'Tangerines', 'Papayas'
@@ -46,11 +52,17 @@ const IPICBarChart = (props) => {
                 tickPlacement: 'on',
                 title: {
                     text: props.xaxistitle,
+                    style: {
+                        color: props.darkMode ? "white" : ""
+                    }
                 }
             },
             yaxis: {
                 title: {
                     text: props.yaxistitle,
+                    style: {
+                        color: props.darkMode ? "white" : ""
+                    }
                 },
             },
             fill: {
@@ -66,6 +78,10 @@ const IPICBarChart = (props) => {
                     opacityTo: 0.85,
                     stops: [50, 0, 100]
                 },
+            },
+            tooltip: {
+                enabled: true,
+                theme: props.darkMode ? "dark" : "light"
             }
         }
     };

@@ -42,3 +42,7 @@ export {
     setUploadedFile,
     setIpicStatistic
 } from './uploadFileActions'
+
+export {
+    toggleDarkMode
+} from './darkModeActions'

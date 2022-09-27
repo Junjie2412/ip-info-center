@@ -1,7 +1,8 @@
 .NavBar {
     width: 100%;
-    height: 40px;
-    margin: 10px 0 5px 0;
+    height: 55px;
+    padding: 10px 0 5px 0;
+    background-color: #c6d9f7;
 }
 
 .NavBarRight {

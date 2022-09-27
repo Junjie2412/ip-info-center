@@ -47,7 +47,7 @@ class UploadDataPage extends Component {
 
         return (
             <Aux>
-                <div className="UploadDataPage">
+                <div className={"UploadDataPage"+(this.props.darkMode ? " DarkMode": "")}>
                     <div className="UploadNavSection">
                         <div className="UploadNavWords">
                             <p>Upload Data</p>
@@ -98,7 +98,8 @@ class UploadDataPage extends Component {
 const mapStateToProps = state => {
     return {
         uploadedFile: state.uploadFilesReducer.uploadedFile,
-        ipicStatistic: state.uploadFilesReducer.ipicStatistic
+        ipicStatistic: state.uploadFilesReducer.ipicStatistic,
+        darkMode: state.darkModeReducer.darkMode
     };
 };
 

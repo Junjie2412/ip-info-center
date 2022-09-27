@@ -12,7 +12,16 @@ const IPICPieChart = (props) => {
                 type: 'donut',
             },
             title: {
-                text: props.title
+                text: props.title,
+                style: {
+                    color: props.darkMode ? "white" : ""
+                }
+            },
+            legend: {
+                labels: {
+                    colors: props.darkMode ? "white" : "",
+                    useSeriesColors: false
+                }
             },
             labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
             responsive: [{

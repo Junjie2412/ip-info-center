@@ -18,32 +18,13 @@
     margin: 0 0 0 20px;
 }
 
-.legendHigh {
-     height: 22px;
-     width: 22px;
-     background-color: #ff0000;
-     border-radius: 50%;
-     display: inline-block;
-}
-
-.legendMedium {
-    height: 22px;
-    width: 22px;
-    background-color: #ffc107;
-    border-radius: 50%;
-    display: inline-block;
-}
-
-.legendLow {
-    height: 22px;
-    width: 22px;
-    background-color: #0dcaf0;
-    border-radius: 50%;
-    display: inline-block;
+.legendValueContainer {
+    margin-bottom: 5px;
 }
 
 .legendValueContainer > p {
     display: inline-block;
     vertical-align: top;
     margin: 0 0 0 10px;
+    color: black !important;
 }

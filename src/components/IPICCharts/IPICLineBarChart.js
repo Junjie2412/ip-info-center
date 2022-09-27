@@ -23,7 +23,10 @@ const IPICLineBarChart = (props) => {
                 width: [0, 4]
             },
             title: {
-                text: props.title
+                text: props.title,
+                style: {
+                    color: props.darkMode ? "white" : ""
+                }
             },
             dataLabels: {
                 enabled: true,
@@ -33,20 +36,54 @@ const IPICLineBarChart = (props) => {
             xaxis: {
                 type: 'datetime',
                 title: {
-                    text: props.xaxistitle
+                    text: props.xaxistitle,
+                    style: {
+                        color: props.darkMode ? "white" : ""
+                    }
+                },
+                labels: {
+                    style: {
+                        colors: props.darkMode ? "white" : ""
+                    }
                 }
             },
             yaxis: [{
                 title: {
                     text: props.barTitle,
+                    style: {
+                        color: props.darkMode ? "white" : ""
+                    }
                 },
+                labels: {
+                    style: {
+                        colors: props.darkMode ? "white" : ""
+                    }
+                }
 
             }, {
                 opposite: true,
                 title: {
-                    text: props.lineTitle
+                    text: props.lineTitle,
+                    style: {
+                        color: props.darkMode ? "white" : ""
+                    }
+                },
+                labels: {
+                    style: {
+                        colors: props.darkMode ? "white" : ""
+                    }
                 }
-            }]
+            }],
+            tooltip: {
+                enabled: true,
+                theme: props.darkMode ? "dark" : "light"
+            },
+            legend: {
+                labels: {
+                    colors: props.darkMode ? "white" : "",
+                    useSeriesColors: false
+                }
+            }
         }
     };
 

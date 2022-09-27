@@ -22,3 +22,7 @@
 .my-modal {
     max-width:920px !important;
 }
+
+.DarkMode .IPICDateRangeDropdownInput {
+    background-color: lightgrey;
+}

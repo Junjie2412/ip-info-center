@@ -76,7 +76,7 @@ class GeolocationPage extends Component {
 
         return (
             <Aux>
-                <div className={"GeolocationPage"}>
+                <div className={"GeolocationPage"+(this.props.darkMode ? " DarkMode": "")}>
                     <div className={"GeolocationUploadMoreDataButton"}>
                         <UploadFilesButton label={"Upload More Data"}/>
                     </div>
@@ -188,7 +188,8 @@ const mapStateToProps = state => {
         ipAddressFilterList: state.geolocationReducer.ipAddressFilterList,
         center: state.geolocationReducer.center,
         exportHeaders: state.geolocationReducer.exportHeaders,
-        showLineAndHome: state.geolocationReducer.showLineAndHome
+        showLineAndHome: state.geolocationReducer.showLineAndHome,
+        darkMode: state.darkModeReducer.darkMode
     };
 };
 

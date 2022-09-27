@@ -29,10 +29,10 @@ class NavBar extends Component {
 
         return (
             <Aux>
-                <div className="NavBar">
-                    <IPICTab label="Search Criteria" selected={this.props.currentTab==="Search Criteria"} onClick={()=> this.setTab("Search Criteria")} link={"/home"}/>
-                    <IPICTab hidden={!this.props.showGeolocationTab} label="Geolocation Data" selected={this.props.currentTab==="Geolocation Data"} onClick={()=> this.setTab("Geolocation Data")} link={"/geolocation"}/>
-                    <IPICTab hidden={!this.props.showTradeDataTab} label="Trade Data" selected={this.props.currentTab==="Trade Data"} onClick={()=>this.setTab("Trade Data")} link={"/tradedata"}/>
+                <div className={"NavBar"+(this.props.darkMode ? " HeaderDarkMode" : "")}>
+                    <IPICTab darkMode={this.props.darkMode} label="Search Criteria" selected={this.props.currentTab==="Search Criteria"} onClick={()=> this.setTab("Search Criteria")} link={"/home"}/>
+                    <IPICTab darkMode={this.props.darkMode} hidden={!this.props.showGeolocationTab} label="Geolocation Data" selected={this.props.currentTab==="Geolocation Data"} onClick={()=> this.setTab("Geolocation Data")} link={"/geolocation"}/>
+                    <IPICTab darkMode={this.props.darkMode} hidden={!this.props.showTradeDataTab} label="Trade Data" selected={this.props.currentTab==="Trade Data"} onClick={()=>this.setTab("Trade Data")} link={"/tradedata"}/>
                     <div className="NavBarRight">
                         <OverlayTrigger
                             delay={{ show: 250, hide: 400 }}
@@ -52,7 +52,8 @@ const mapStateToProps = state => {
     return {
         currentTab: state.tabReducer.currentTab,
         showGeolocationTab: state.tabReducer.showGeolocationTab,
-        showTradeDataTab: state.tabReducer.showTradeDataTab
+        showTradeDataTab: state.tabReducer.showTradeDataTab,
+        darkMode: state.darkModeReducer.darkMode
     };
 };
 

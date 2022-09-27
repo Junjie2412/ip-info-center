@@ -34,11 +34,18 @@ const IPICDoubleLineChart = (props) => {
             },
             title: {
                 text: props.title,
-                align: 'left'
+                align: 'left',
+                style: {
+                    color: props.darkMode ? "white" : ""
+                }
             },
             legend: {
                 tooltipHoverFormatter: function(val, opts) {
                     return val + ' - ' + opts.w.globals.series[opts.seriesIndex][opts.dataPointIndex] + ''
+                },
+                labels: {
+                    colors: props.darkMode ? "white" : "",
+                    useSeriesColors: false
                 }
             },
             markers: {
@@ -52,7 +59,22 @@ const IPICDoubleLineChart = (props) => {
                     '10 Jan', '11 Jan', '12 Jan'
                 ],
                 title: {
-                    text: props.xaxistitle
+                    text: props.xaxistitle,
+                    style: {
+                        color: props.darkMode ? "white" : ""
+                    }
+                },
+                labels: {
+                    style: {
+                        colors: props.darkMode ? "white" : ""
+                    }
+                }
+            },
+            yaxis: {
+                labels: {
+                    style: {
+                        colors: props.darkMode ? "white" : ""
+                    }
                 }
             },
             tooltip: {
@@ -71,7 +93,8 @@ const IPICDoubleLineChart = (props) => {
                             }
                         }
                     }
-                ]
+                ],
+                theme: props.darkMode ? "dark" : "light"
             },
             grid: {
                 borderColor: '#f1f1f1',

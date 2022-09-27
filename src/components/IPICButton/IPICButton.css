@@ -29,7 +29,7 @@
 }
 
 .IPICButtonWhite:active {
-    background: lightgrey;
+    background: lightslategrey;
 }
 
 .IPICButtonBlue:disabled {
@@ -41,4 +41,8 @@
 .IPICButtonWhite:disabled {
     transform: none;
     background-color: #E8E8E8;
+}
+
+.DarkMode .IPICButtonWhite {
+    background: lightgrey;
 }

@@ -61,3 +61,7 @@
 .IPICDropdownContent:hover {
     display: block;
 }
+
+.DarkMode .IPICDropdownContent, .DarkMode .IPICDropdownInput, .DarkMode .DropdownOptions {
+    background-color: lightgrey;
+}

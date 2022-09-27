@@ -6,7 +6,7 @@ const IPICTab = (props) => {
 
     return (
         <NavLink to={props.link} style={{textDecoration: "none", display: (props.hidden ? "none" : "")}}>
-            <div className={"IPICTab"+(props.selected ? " IPICTabActive" : "")} onClick={props.onClick}>
+            <div className={"IPICTab"+(props.selected ? " IPICTabActive" : "")+(props.darkMode ? " DarkMode" : "")} onClick={props.onClick}>
                     <p className="IPICTabWords">{props.label}</p>
             </div>
         </NavLink>
