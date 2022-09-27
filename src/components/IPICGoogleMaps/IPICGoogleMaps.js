@@ -82,9 +82,9 @@ const IPICGoogleMaps = (props) => {
                 <Aux>
                     <div className={"ipicMapContainer"}>
                         <GoogleMap zoom={3} center={props.center ? props.center : center} mapContainerClassName={"map-container"}>
-                            {homeMarkers}
                             {ipMarkers}
-                            {polyLines}
+                            {props.show ? homeMarkers : ""}
+                            {props.show ? polyLines : ""}
                         </GoogleMap>
                     </div>
                     <div className={"googleMapsLegend"}>

@@ -6,6 +6,8 @@ import * as actions from "../../store/actions";
 import {connect} from 'react-redux';
 import UploadFilesButton from "../../components/UploadFilesButton/UploadFilesButton";
 import {NavLink} from "react-router-dom";
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 
 class UploadDataPage extends Component {
 
@@ -31,6 +33,18 @@ class UploadDataPage extends Component {
 
     render () {
 
+        const renderGeoTooltip = (
+            <Tooltip id="button-geotooltip">
+                This view will display the IP address locations on a map and provide a risk score.
+            </Tooltip>
+        );
+
+        const renderTradeTooltip = (
+            <Tooltip id="button-tradetooltip">
+                This summary dashboard view will be used for trade data with IP address and related information.
+            </Tooltip>
+        );
+
         return (
             <Aux>
                 <div className="UploadDataPage">
@@ -46,9 +60,21 @@ class UploadDataPage extends Component {
                         </div>
                         <div className="UploadFilesRadios">
                             <input type="radio" id="geolocation" name="statistics" value="GEO" onChange={() => this.props.onSetIpicStatistic("GEO")}/>
-                            <label htmlFor="geolocation">IP Geolocation Data</label>
+                            <OverlayTrigger
+                                delay={{ show: 250, hide: 400 }}
+                                overlay={renderGeoTooltip}
+                                placement={"bottom"}
+                            >
+                            <label htmlFor="geolocation" >IP Geolocation Data</label>
+                            </OverlayTrigger>
                             <input type="radio" id="tradedata" name="statistics" value="TRADE" onChange={() => this.props.onSetIpicStatistic("TRADE")}/>
-                            <label htmlFor="tradedata">IP Trade Data</label>
+                            <OverlayTrigger
+                                delay={{ show: 250, hide: 400 }}
+                                overlay={renderTradeTooltip}
+                                placement={"bottom"}
+                            >
+                                <label htmlFor="tradedata">IP Trade Data</label>
+                            </OverlayTrigger>
                         </div>
                     </div>
                     <div className="UploadNavSection">

@@ -8,6 +8,12 @@ import * as actions from "../../store/actions";
 import {format} from "date-fns";
 import IPICDateRangeDropdown from "../../components/IPICDateRangeDropdown/IPICDateRangeDropdown";
 import UploadFilesButton from "../../components/UploadFilesButton/UploadFilesButton";
+import IPICPieChart from "../../components/IPICCharts/IPICPieChart";
+import IPICBarChart from "../../components/IPICCharts/IPICBarChart";
+import IPICStackedBarChart from "../../components/IPICCharts/IPICStackedBarChart";
+import IPICLineBarChart from "../../components/IPICCharts/IPICLineBarChart";
+import IPICDoubleLineBarChart from "../../components/IPICCharts/IPICDoubleLineBarChart";
+import IPICDoubleLineChart from "../../components/IPICCharts/IPICDoubleLineChart";
 
 class TradeDataPage extends Component {
 
@@ -68,7 +74,7 @@ class TradeDataPage extends Component {
                         </div>
                         <div>
                             <IPICDropdown
-                                header={"IP Addresses"}
+                                header={"IP Address"}
                                 placeholder={"Search and Select"}
                                 list={this.props.ipaddresses}
                                 filter={this.props.ipAddressFilter}
@@ -95,6 +101,37 @@ class TradeDataPage extends Component {
                         </div>
                         <div className="TradeDataButton">
                             <IPICButton label={"RESET"} type={"white"} onClick={this.handleReset}/>
+                        </div>
+                    </div>
+                    <div className={"TradeCharts"}>
+                        <div className={"TradeChartGroup"}>
+                            <div>
+                                <IPICPieChart title={"Representatives Accessing Customer Accounts"}/>
+                            </div>
+                            <div>
+                                <IPICBarChart xaxistitle={"Account Number"} yaxistitle={"Count of IP Address"} title={"Count of IP Address by Account Number"}/>
+                            </div>
+                        </div>
+                        <div className={"TradeChartGroup"}>
+                            <div>
+                                <IPICBarChart borderRadius={10} xaxistitle={"IP Address"} yaxistitle={"Count of Account Number"} title={"Count of Account Number by IP Address"}/>
+                            </div>
+                            <div>
+                                <IPICStackedBarChart title={"Sum of Event Quantity by IP Address and Security Symbol"} xaxistitle={"IP Address"} yaxistitle={"Sum of Event Quantity"}/>
+                            </div>
+                        </div>
+                        <div className={"TradeChartGroup"}>
+                            <div>
+                                <IPICLineBarChart title={"Event Date and IP Address by Account Number"} xaxistitle={"Account Number"} barTitle={"Count of Event Date"} lineTitle={"Count of IP Address"}/>
+                            </div>
+                            <div>
+                                <IPICDoubleLineBarChart title={"Event Date, IP Address, and Account Number by Symbol"} xaxistitle={"Security Symbol"} columnTitle={"Event Date"} areaTitle={"IP Address"} lineTitle={"Account Number"}/>
+                            </div>
+                        </div>
+                        <div className={"TradeChartGroup"}>
+                            <div>
+                                <IPICDoubleLineChart title={"IP Address and Account Number by Date"} xaxistitle={"Date"} lineTitle={"Account Number"} dashedLineTitle={"IP Address"}/>
+                            </div>
                         </div>
                     </div>
                 </div>

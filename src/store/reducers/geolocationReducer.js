@@ -23,6 +23,7 @@ const initialState = {
     geoMarkers: geolocationDatabase,
     currentMarker: "",
     center: "",
+    showLineAndHome: false,
     exportHeaders: [
         { label: "Account Name", key: "name" },
         { label: "Date of Birth", key: "dob" },
@@ -143,12 +144,14 @@ const resetGeolocationPage = (state) => {
         ipAddressFilterList: [],
         startDate: new Date(),
         endDate: addDays(new Date(), 7),
-        geoMarkers: geolocationDatabase
+        geoMarkers: geolocationDatabase,
+        showLineAndHome: false
     })
 };
 
 const applyGeolocationFilters = (state) => {
     let updatedList = geolocationDatabase;
+    let show = false;
     if (state.riskLevelFilterList.length > 0) (updatedList = updatedList.filter(item => {
         return state.riskLevelFilterList.includes(item.risk_label)
     }));
@@ -161,8 +164,16 @@ const applyGeolocationFilters = (state) => {
     if (state.ipAddressFilterList.length > 0) (updatedList = updatedList.filter(item => {
         return state.ipAddressFilterList.includes(item.ip_address)
     }));
+    if (state.riskLevelFilterList.length > 0 ||
+        state.accountNamesAndNumbersFilterList.length > 0 ||
+        state.locationFilterList.length > 0 ||
+        state.ipAddressFilterList.length > 0
+    ) {
+        show = true;
+    }
     return updateObject( state, {
-        geoMarkers: updatedList
+        geoMarkers: updatedList,
+        showLineAndHome: show
     })
 };
 
@@ -173,12 +184,19 @@ const setCenter = (state)  => {
         lat= lat + parseFloat(marker.ip_coordinates.split(",")[0]);
         long = long + parseFloat(marker.ip_coordinates.split(",")[1])
     }
-    for (let marker of state.geoMarkers) {
-        lat= lat + parseFloat(marker.cust_coordinates.split(",")[0]);
-        long = long + parseFloat(marker.cust_coordinates.split(",")[1])
+    if (state.showLineAndHome) {
+        for (let marker of state.geoMarkers) {
+            lat= lat + parseFloat(marker.cust_coordinates.split(",")[0]);
+            long = long + parseFloat(marker.cust_coordinates.split(",")[1])
+        }
     }
-    lat=lat/(state.geoMarkers.length*2);
-    long =long/(state.geoMarkers.length*2);
+    if (state.showLineAndHome) {
+        lat=lat/(state.geoMarkers.length*2);
+        long =long/(state.geoMarkers.length*2);
+    } else {
+        lat=lat/(state.geoMarkers.length);
+        long =long/(state.geoMarkers.length);
+    }
     return updateObject( state, {
         center: lat+","+long
     })

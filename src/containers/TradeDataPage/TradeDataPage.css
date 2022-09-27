@@ -1,7 +1,8 @@
 .TradeDataPage {
     background-color: white;
     width: 100%;
-    height: calc(100vh - 205px);
+    /*height: calc(100vh - 205px);*/
+    height: 5000px;
 }
 
 .TradeDataDropdownGroup {
@@ -26,6 +27,22 @@
 .TradeDataUploadMoreDataButton {
     margin: 20px 50px 0 0;
     float: right;
+}
+
+.TradeCharts {
+    margin: 50px 0 0 50px;
+}
+
+.TradeChartGroup {
+    width: fit-content;
+}
+
+.TradeChartGroup > div {
+    display: inline-block;
+    box-shadow: rgba(0, 0, 0, 0.35) 0 5px 15px;
+    margin: 0 20px 20px 0;
+    height: 370px;
+    vertical-align: top;
 }
 
 @media only screen and (max-width: 1280px) {

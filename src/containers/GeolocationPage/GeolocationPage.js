@@ -128,7 +128,7 @@ class GeolocationPage extends Component {
                         </div>
                         <div>
                             <IPICDropdown
-                                header={"IP Addresses"}
+                                header={"IP Address"}
                                 placeholder={"Search and Select"}
                                 list={this.props.ipaddresses}
                                 filter={this.props.ipAddressFilter}
@@ -148,7 +148,7 @@ class GeolocationPage extends Component {
                     </div>
                     <div className="GeolocationExportButton">
                         <div>
-                            <CSVLink data={this.props.geoMarkers}>
+                            <CSVLink data={this.props.geoMarkers} >
                                 <IPICButton label={"EXPORT"} type={"blue"}/>
                             </CSVLink>
                         </div>
@@ -159,6 +159,7 @@ class GeolocationPage extends Component {
                             setCurrentMarker={this.props.onSetCurrentMarker}
                             currentMarker={this.props.currentMarker}
                             center={{ lat: parseFloat(this.props.center.split(",")[0]), lng: parseFloat(this.props.center.split(",")[1])}}
+                            show={this.props.showLineAndHome}
                         />
                     </div>
                 </div>
@@ -186,7 +187,8 @@ const mapStateToProps = state => {
         locationFilterList: state.geolocationReducer.locationFilterList,
         ipAddressFilterList: state.geolocationReducer.ipAddressFilterList,
         center: state.geolocationReducer.center,
-        exportHeaders: state.geolocationReducer.exportHeaders
+        exportHeaders: state.geolocationReducer.exportHeaders,
+        showLineAndHome: state.geolocationReducer.showLineAndHome
     };
 };
 

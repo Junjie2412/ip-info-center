@@ -14,8 +14,5 @@
 .NavBarRightWords {
     margin: 10px;
     cursor: pointer;
-}
-
-.NavBarRightWords:hover {
     font-weight: bold;
 }
