@@ -23,6 +23,14 @@ const IPICDoubleLineChart = (props) => {
                 zoom: {
                     enabled: false
                 },
+                toolbar : {
+                    export: {
+                        csv: {
+                            filename: props.filename,
+                            headerCategory: props.xaxistitle ? props.xaxistitle : "",
+                        }
+                    }
+                }
             },
             dataLabels: {
                 enabled: false
@@ -78,27 +86,19 @@ const IPICDoubleLineChart = (props) => {
                 }
             },
             tooltip: {
-                y: [
-                    {
-                        title: {
-                            formatter: function (val) {
-                                return val + " (mins)"
-                            }
-                        }
-                    },
-                    {
-                        title: {
-                            formatter: function (val) {
-                                return val + " per session"
-                            }
-                        }
-                    }
-                ],
                 theme: props.darkMode ? "dark" : "light"
             },
             grid: {
                 borderColor: '#f1f1f1',
-            }
+            },
+            responsive: [{
+                breakpoint: 1320,
+                options: {
+                    chart: {
+                        width: 520
+                    }
+                }
+            }]
         }
     };
 

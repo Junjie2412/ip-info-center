@@ -5,7 +5,7 @@
 
 .DarkMode {
     background-color: #222736 !important;
-    color: white !important;
+    color: white;
 }
 
 .HeaderDarkMode {

@@ -35,6 +35,7 @@
 
 .TradeChartGroup {
     width: fit-content;
+    color: black;
 }
 
 .TradeChartGroup > div {

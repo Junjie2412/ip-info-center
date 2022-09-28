@@ -8,16 +8,24 @@ const IPICLineBarChart = (props) => {
         series: [{
             name: props.barTitle,
             type: 'column',
-            data: [440, 505, 414, 671, 227, 413, 201, 352, 752, 320, 257, 160]
+            data: props.lineData ? (props.columnData.slice(0, (props.topValues ? props.topValues : 10))) : []
         }, {
             name: props.lineTitle,
             type: 'line',
-            data: [23, 42, 35, 27, 43, 22, 17, 31, 22, 22, 12, 16]
+            data: props.lineData ? (props.lineData.slice(0, (props.topValues ? props.topValues : 10))) : []
         }],
         options: {
             chart: {
                 height: 350,
                 type: 'line',
+                toolbar : {
+                    export: {
+                        csv: {
+                            filename: props.filename,
+                            headerCategory: props.xaxistitle ? props.xaxistitle : "",
+                        }
+                    }
+                }
             },
             stroke: {
                 width: [0, 4]
@@ -32,9 +40,8 @@ const IPICLineBarChart = (props) => {
                 enabled: true,
                 enabledOnSeries: [1]
             },
-            labels: ['01 Jan 2001', '02 Jan 2001', '03 Jan 2001', '04 Jan 2001', '05 Jan 2001', '06 Jan 2001', '07 Jan 2001', '08 Jan 2001', '09 Jan 2001', '10 Jan 2001', '11 Jan 2001', '12 Jan 2001'],
+            labels: props.labels ? (props.labels.slice(0, (props.topValues ? props.topValues : 10))) : [],
             xaxis: {
-                type: 'datetime',
                 title: {
                     text: props.xaxistitle,
                     style: {
@@ -83,7 +90,15 @@ const IPICLineBarChart = (props) => {
                     colors: props.darkMode ? "white" : "",
                     useSeriesColors: false
                 }
-            }
+            },
+            responsive: [{
+                breakpoint: 1320,
+                options: {
+                    chart: {
+                        width: 520
+                    }
+                }
+            }]
         }
     };
 

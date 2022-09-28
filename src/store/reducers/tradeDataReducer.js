@@ -1,7 +1,10 @@
 import * as actionTypes from '../actions/actionTypes';
 import {updateObject} from '../../shared/utility';
 import {addDays} from "date-fns";
-import {tradeDataDatabase} from "../../shared/tradeDataDatabase";
+import {tradeDataDatabase, RepsAccessingCustomerAccounts} from "../../shared/tradeDataDatabase";
+import {EventDateIPAddressByAccountNumber} from "../../shared/tradeDataLineBarChart";
+import {EventDateIpAddressAndAccountNumberBySecuritySymbol} from "../../shared/tradeDataDoubleLineBarChart";
+import {CountOfIPAddressByAccountNumber} from "../../shared/tradeDataBarChartOne";
 
 const initialState = {
     accountNamesAndNumbersFilter: "",
@@ -11,7 +14,27 @@ const initialState = {
     ipAddressFilter: "",
     ipAddressFilterList: [],
     startDate: new Date(),
-    endDate: addDays(new Date(), 7)
+    endDate: addDays(new Date(), 7),
+    topValues: 20,
+    RepsAccessingCustomerAccountsPieChart : {
+        labels: RepsAccessingCustomerAccounts.map((entry) => entry.user_type),
+        series: RepsAccessingCustomerAccounts.map((entry => entry.n_transactions))
+    },
+    CountOfIPAddressByAccountNumberBarChart : {
+        labels: CountOfIPAddressByAccountNumber.map((entry) => entry.account_number),
+        series: CountOfIPAddressByAccountNumber.map((entry) => entry.n_distinct_ip),
+    },
+    EventDateIPAddressByAccountNumberLineBarChart : {
+        labels: EventDateIPAddressByAccountNumber.map((entry) => entry.account_number),
+        columnData: EventDateIPAddressByAccountNumber.map((entry) => entry.active_trading_days),
+        lineData: EventDateIPAddressByAccountNumber.map((entry) => entry.n_distinct_ip)
+    },
+    EventDateIpAddressAndAccountNumberBySecuritySymbolDoubleLineBarChart : {
+        labels: EventDateIpAddressAndAccountNumberBySecuritySymbol.map((entry) => entry.security_symbol),
+        columnData: EventDateIpAddressAndAccountNumberBySecuritySymbol.map((entry) => entry.active_trading_days),
+        lineData: EventDateIpAddressAndAccountNumberBySecuritySymbol.map((entry) => entry.n_distinct_ip),
+        areaData: EventDateIpAddressAndAccountNumberBySecuritySymbol.map((entry) => entry.n_distinct_acct_numbers)
+    }
 };
 
 const setAccountNamesAndNumbersFilter = (state, action) => {

@@ -106,15 +106,36 @@ class TradeDataPage extends Component {
                     <div className={"TradeCharts"}>
                         <div className={"TradeChartGroup"}>
                             <div>
-                                <IPICPieChart darkMode={this.props.darkMode} title={"Representatives Accessing Customer Accounts"}/>
+                                <IPICPieChart
+                                    darkMode={this.props.darkMode}
+                                    title={"Representatives Accessing Customer Accounts"}
+                                    series={this.props.RepsAccessingCustomerAccountsPieChart.series}
+                                    labels={this.props.RepsAccessingCustomerAccountsPieChart.labels}
+                                />
                             </div>
                             <div>
-                                <IPICBarChart darkMode={this.props.darkMode} xaxistitle={"Account Number"} yaxistitle={"Count of IP Address"} title={"Count of IP Address by Account Number"}/>
+                                <IPICBarChart
+                                    darkMode={this.props.darkMode}
+                                    xaxistitle={"Account Number"}
+                                    yaxistitle={"Count of IP Address"}
+                                    title={"Count of IP Address by Account Number"}
+                                    series={this.props.CountOfIPAddressByAccountNumberBarChart.series}
+                                    labels={this.props.CountOfIPAddressByAccountNumberBarChart.labels}
+                                    topValues={this.props.topValues}
+                                    filename={"Count of IP Address by Account Number"}
+                                />
                             </div>
                         </div>
                         <div className={"TradeChartGroup"}>
                             <div>
-                                <IPICBarChart darkMode={this.props.darkMode} borderRadius={10} xaxistitle={"IP Address"} yaxistitle={"Count of Account Number"} title={"Count of Account Number by IP Address"}/>
+                                <IPICBarChart
+                                    darkMode={this.props.darkMode}
+                                    borderRadius={10}
+                                    xaxistitle={"IP Address"}
+                                    yaxistitle={"Count of Account Number"}
+                                    title={"Count of Account Number by IP Address"}
+                                    filename={"Count of Account Number by IP Address"}
+                                />
                             </div>
                             <div>
                                 <IPICStackedBarChart darkMode={this.props.darkMode} title={"Sum of Event Quantity by IP Address and Security Symbol"} xaxistitle={"IP Address"} yaxistitle={"Sum of Event Quantity"}/>
@@ -122,10 +143,34 @@ class TradeDataPage extends Component {
                         </div>
                         <div className={"TradeChartGroup"}>
                             <div>
-                                <IPICLineBarChart darkMode={this.props.darkMode} title={"Event Date and IP Address by Account Number"} xaxistitle={"Account Number"} barTitle={"Count of Event Date"} lineTitle={"Count of IP Address"}/>
+                                <IPICLineBarChart
+                                    darkMode={this.props.darkMode}
+                                    title={"Event Date and IP Address by Account Number"}
+                                    xaxistitle={"Account Number"}
+                                    barTitle={"Count of Event Date"}
+                                    lineTitle={"Count of IP Address"}
+                                    labels={this.props.EventDateIPAddressByAccountNumberLineBarChart.labels}
+                                    columnData={this.props.EventDateIPAddressByAccountNumberLineBarChart.columnData}
+                                    lineData={this.props.EventDateIPAddressByAccountNumberLineBarChart.lineData}
+                                    topValues={this.props.topValues}
+                                    filename={"Event Date and IP Address by Account Number"}
+                                />
                             </div>
                             <div>
-                                <IPICDoubleLineBarChart darkMode={this.props.darkMode} title={"Event Date, IP Address, and Account Number by Symbol"} xaxistitle={"Security Symbol"} columnTitle={"Event Date"} areaTitle={"IP Address"} lineTitle={"Account Number"}/>
+                                <IPICDoubleLineBarChart
+                                    darkMode={this.props.darkMode}
+                                    title={"Event Date, IP Address, and Account Number by Symbol"}
+                                    xaxistitle={"Security Symbol"}
+                                    columnTitle={"Count of Event Date"}
+                                    areaTitle={"Count of IP Address"}
+                                    lineTitle={"Count of Account Number"}
+                                    labels={this.props.EventDateIpAddressAndAccountNumberBySecuritySymbolDoubleLineBarChart.labels}
+                                    columnData={this.props.EventDateIpAddressAndAccountNumberBySecuritySymbolDoubleLineBarChart.columnData}
+                                    lineData={this.props.EventDateIpAddressAndAccountNumberBySecuritySymbolDoubleLineBarChart.lineData}
+                                    areaData={this.props.EventDateIpAddressAndAccountNumberBySecuritySymbolDoubleLineBarChart.areaData}
+                                    topValues={this.props.topValues}
+                                    filename={"Event Date, IP Address, and Account Number by Symbol"}
+                                />
                             </div>
                         </div>
                         <div className={"TradeChartGroup"}>
@@ -150,6 +195,11 @@ const mapStateToProps = state => {
         accountNamesAndNumbersFilterList: state.tradeDataReducer.accountNamesAndNumbersFilterList,
         ipAddressFilter: state.tradeDataReducer.ipAddressFilter,
         ipAddressFilterList: state.tradeDataReducer.ipAddressFilterList,
+        topValues: state.tradeDataReducer.topValues,
+        RepsAccessingCustomerAccountsPieChart: state.tradeDataReducer.RepsAccessingCustomerAccountsPieChart,
+        CountOfIPAddressByAccountNumberBarChart: state.tradeDataReducer.CountOfIPAddressByAccountNumberBarChart,
+        EventDateIPAddressByAccountNumberLineBarChart: state.tradeDataReducer.EventDateIPAddressByAccountNumberLineBarChart,
+        EventDateIpAddressAndAccountNumberBySecuritySymbolDoubleLineBarChart : state.tradeDataReducer.EventDateIpAddressAndAccountNumberBySecuritySymbolDoubleLineBarChart,
         darkMode: state.darkModeReducer.darkMode
     };
 };

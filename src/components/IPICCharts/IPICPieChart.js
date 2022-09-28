@@ -6,7 +6,7 @@ const IPICPieChart = (props) => {
 
     const options = {
 
-        series: [44, 55, 41, 17, 15],
+        series: props.series,
         options: {
             chart: {
                 type: 'donut',
@@ -23,7 +23,7 @@ const IPICPieChart = (props) => {
                     useSeriesColors: false
                 }
             },
-            labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
+            labels: props.labels,
             responsive: [{
                 breakpoint: 480,
                 options: {

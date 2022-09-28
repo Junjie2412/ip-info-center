@@ -7,13 +7,21 @@ const IPICBarChart = (props) => {
     const options = {
 
         series: [{
-            name: props.seriesName ? props.seriesName : "",
-            data: [44, 55, 41, 67, 22, 43, 21, 33, 45, 31, 87, 65, 35].sort().reverse()
+            name: props.yaxistitle ? props.yaxistitle : "",
+            data: props.series ? (props.series.slice(0, (props.topValues ? props.topValues : 10))) : []
         }],
         options: {
             chart: {
                 height: 350,
                 type: 'bar',
+                toolbar : {
+                    export: {
+                        csv: {
+                            filename: props.filename,
+                            headerCategory: props.xaxistitle ? props.xaxistitle : "",
+                        }
+                    }
+                }
             },
             title: {
                 text: props.title,
@@ -46,9 +54,7 @@ const IPICBarChart = (props) => {
                         colors: props.darkMode ? "white" : ""
                     }
                 },
-                categories: ['Apples', 'Oranges', 'Strawberries', 'Pineapples', 'Mangoes', 'Bananas',
-                    'Blackberries', 'Pears', 'Watermelons', 'Cherries', 'Pomegranates', 'Tangerines', 'Papayas'
-                ],
+                categories: props.labels ? (props.labels.slice(0, (props.topValues ? props.topValues : 10))) : [],
                 tickPlacement: 'on',
                 title: {
                     text: props.xaxistitle,
@@ -82,7 +88,15 @@ const IPICBarChart = (props) => {
             tooltip: {
                 enabled: true,
                 theme: props.darkMode ? "dark" : "light"
-            }
+            },
+            responsive: [{
+                breakpoint: 1320,
+                options: {
+                    chart: {
+                        width: 520
+                    }
+                }
+            }]
         }
     };
 

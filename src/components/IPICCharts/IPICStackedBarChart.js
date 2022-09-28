@@ -38,6 +38,14 @@ const IPICStackedBarChart = (props) => {
                 }
             },
             responsive: [{
+                breakpoint: 1320,
+                options: {
+                    chart: {
+                        width: 520
+                    }
+                        }
+                },
+                {
                 breakpoint: 480,
                 options: {
                     legend: {

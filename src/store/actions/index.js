@@ -8,6 +8,7 @@ export {
     setGeolocationEndDate,
     setGeolocationStartDate,
     setCurrentMarker,
+    setHomeMarker,
     setAccountNamesAndNumbersFilter,
     addToAccountNamesAndNumbersFilterList,
     removeFromAccountNamesAndNumbersFilterList,

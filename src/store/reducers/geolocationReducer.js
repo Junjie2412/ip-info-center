@@ -2,26 +2,27 @@ import * as actionTypes from '../actions/actionTypes';
 import {updateObject} from '../../shared/utility';
 import { addDays } from 'date-fns';
 import {countries} from "../../shared/countries";
-import {geolocationDatabase} from "../../shared/geolocationDatabase";
+import {geolocationMarkersDatabase, geolocationHomeLabelsDatabase} from "../../shared/geolocationDatabase";
 
 const initialState = {
     riskLevels: ["High","Medium","Low"],
     riskLevelFilter: "",
     riskLevelFilterList: [],
-    accountNamesAndNumbers: geolocationDatabase.map((entry) => (entry.name+" ("+entry.account_number+")")).sort(),
+    accountNamesAndNumbers: [...new Set(geolocationMarkersDatabase.map((entry) => (entry.name+" ("+entry.account_number+")")).sort())],
     accountNamesAndNumbersFilter: "",
     accountNamesAndNumbersFilterList: [],
     countries: countries.map((entry) => (entry.name)).sort(),
     locationFilter: "",
     locationFilterList: [],
-    ipaddresses: geolocationDatabase.map((entry) => entry.ip_address).sort(),
+    ipaddresses: [...new Set(geolocationMarkersDatabase.map((entry) => entry.ip_address).sort())],
     ipAddressFilter: "",
     ipAddressFilterList: [],
     startDate: new Date(),
     endDate: addDays(new Date(), 7),
-    geoMarkersFullList: geolocationDatabase,
-    geoMarkers: geolocationDatabase,
+    geoMarkersFullList: geolocationMarkersDatabase,
+    geoMarkers: geolocationMarkersDatabase,
     currentMarker: "",
+    homeMarker: "",
     center: "",
     showLineAndHome: false,
     exportHeaders: [
@@ -136,6 +137,13 @@ const setCurrentMarker = (state, action) => {
     })
 };
 
+const setHomeMarker = (state, action) => {
+    const marker = geolocationHomeLabelsDatabase.find(item => item.account_number === action.marker);
+    return updateObject( state, {
+        homeMarker: marker
+    })
+};
+
 const resetGeolocationPage = (state) => {
     return updateObject( state, {
         riskLevelFilterList: [],
@@ -144,17 +152,18 @@ const resetGeolocationPage = (state) => {
         ipAddressFilterList: [],
         startDate: new Date(),
         endDate: addDays(new Date(), 7),
-        geoMarkers: geolocationDatabase,
+        geoMarkers: geolocationMarkersDatabase,
         showLineAndHome: false
     })
 };
 
 const applyGeolocationFilters = (state) => {
-    let updatedList = geolocationDatabase;
+    let updatedList = geolocationMarkersDatabase;
     let show = false;
     if (state.riskLevelFilterList.length > 0) (updatedList = updatedList.filter(item => {
         return state.riskLevelFilterList.includes(item.risk_label)
     }));
+    console.log(state.accountNamesAndNumbersFilterList);
     if (state.accountNamesAndNumbersFilterList.length > 0) (updatedList = updatedList.filter(item => {
         return state.accountNamesAndNumbersFilterList.includes(item.name+" ("+item.account_number+")")
     }));
@@ -171,6 +180,8 @@ const applyGeolocationFilters = (state) => {
     ) {
         show = true;
     }
+
+    console.log(updatedList);
     return updateObject( state, {
         geoMarkers: updatedList,
         showLineAndHome: show
@@ -178,28 +189,32 @@ const applyGeolocationFilters = (state) => {
 };
 
 const setCenter = (state)  => {
-    let lat = 0;
-    let long = 0;
-    for (let marker of state.geoMarkers) {
-        lat= lat + parseFloat(marker.ip_coordinates.split(",")[0]);
-        long = long + parseFloat(marker.ip_coordinates.split(",")[1])
-    }
-    if (state.showLineAndHome) {
+    if (state.geoMarkers.length > 0) {
+        let lat = 0;
+        let long = 0;
         for (let marker of state.geoMarkers) {
-            lat= lat + parseFloat(marker.cust_coordinates.split(",")[0]);
-            long = long + parseFloat(marker.cust_coordinates.split(",")[1])
+            lat= lat + parseFloat(marker.ip_coordinates.split(",")[0]);
+            long = long + parseFloat(marker.ip_coordinates.split(",")[1])
         }
-    }
-    if (state.showLineAndHome) {
-        lat=lat/(state.geoMarkers.length*2);
-        long =long/(state.geoMarkers.length*2);
+        if (state.showLineAndHome) {
+            for (let marker of state.geoMarkers) {
+                lat= lat + parseFloat(marker.cust_coordinates.split(",")[0]);
+                long = long + parseFloat(marker.cust_coordinates.split(",")[1])
+            }
+        }
+        if (state.showLineAndHome) {
+            lat=lat/(state.geoMarkers.length*2);
+            long =long/(state.geoMarkers.length*2);
+        } else {
+            lat=lat/(state.geoMarkers.length);
+            long =long/(state.geoMarkers.length);
+        }
+        return updateObject( state, {
+            center: lat+","+long
+        })
     } else {
-        lat=lat/(state.geoMarkers.length);
-        long =long/(state.geoMarkers.length);
+        return state;
     }
-    return updateObject( state, {
-        center: lat+","+long
-    })
 };
 
 const reducer = ( state = initialState, action ) =>
@@ -208,6 +223,7 @@ const reducer = ( state = initialState, action ) =>
         case actionTypes.SET_GEOLOCATION_START_DATE: return setGeolocationStartDate(state, action);
         case actionTypes.SET_GEOLOCATION_END_DATE: return setGeolocationEndDate(state, action);
         case actionTypes.SET_CURRENT_MARKER: return setCurrentMarker(state, action);
+        case actionTypes.SET_HOME_MARKER: return setHomeMarker(state, action);
         case actionTypes.SET_ACCOUNT_NAMES_AND_NUMBERS_FILTER: return setAccountNamesAndNumbersFilter(state, action);
         case actionTypes.SET_RISK_LEVEL_FILTER: return setRiskLevelFilter(state, action);
         case actionTypes.SET_LOCATION_FILTER: return setLocationFilter(state, action);

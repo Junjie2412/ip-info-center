@@ -157,7 +157,9 @@ class GeolocationPage extends Component {
                         <IPICGoogleMaps
                             markers={this.props.geoMarkers}
                             setCurrentMarker={this.props.onSetCurrentMarker}
+                            setHomeMarker={this.props.onSetHomeMarker}
                             currentMarker={this.props.currentMarker}
+                            homeMarker={this.props.homeMarker}
                             center={{ lat: parseFloat(this.props.center.split(",")[0]), lng: parseFloat(this.props.center.split(",")[1])}}
                             show={this.props.showLineAndHome}
                         />
@@ -178,6 +180,7 @@ const mapStateToProps = state => {
         endDate: state.geolocationReducer.endDate,
         geoMarkers: state.geolocationReducer.geoMarkers,
         currentMarker: state.geolocationReducer.currentMarker,
+        homeMarker: state.geolocationReducer.homeMarker,
         accountNamesAndNumbersFilter: state.geolocationReducer.accountNamesAndNumbersFilter,
         riskLevelFilter: state.geolocationReducer.riskLevelFilter,
         locationFilter: state.geolocationReducer.locationFilter,
@@ -200,6 +203,7 @@ const mapDispatchToProps = dispatch => {
         onSetEndDate: (date) => dispatch(actions.setGeolocationEndDate(date)),
         onShowGeolocationTab: (show) => dispatch(actions.showGeolocationTab(show)),
         onSetCurrentMarker: (marker) => dispatch(actions.setCurrentMarker(marker)),
+        onSetHomeMarker: (marker) => dispatch(actions.setHomeMarker(marker)),
         onSetAccountNamesAndNumbersFilter: (filter) => dispatch(actions.setAccountNamesAndNumbersFilter(filter)),
         onSetRiskLevelFilter: (filter) => dispatch(actions.setRiskLevelFilter(filter)),
         onSetLocationFilter: (filter) => dispatch(actions.setLocationFilter(filter)),

@@ -8,25 +8,34 @@ const IPICDoubleLineBarChart = (props) => {
         series: [{
             name: props.columnTitle,
             type: 'column',
-            data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30]
+            data: props.columnData ? (props.columnData.slice(0, (props.topValues ? props.topValues : 10))) : []
         }, {
             name: props.areaTitle,
             type: 'area',
-            data: [44, 55, 41, 67, 22, 43, 21, 41, 56, 27, 43]
+            data: props.areaData ? (props.areaData.slice(0, (props.topValues ? props.topValues : 10))) : []
         }, {
             name: props.lineTitle,
             type: 'line',
-            data: [30, 25, 36, 30, 45, 35, 64, 52, 59, 36, 39]
+            data: props.lineData ? (props.lineData.slice(0, (props.topValues ? props.topValues : 10))) : []
         }],
         options: {
             chart: {
                 height: 350,
                 type: 'line',
                 stacked: false,
+                toolbar : {
+                    export: {
+                        csv: {
+                            filename: props.filename,
+                            headerCategory: props.xaxistitle ? props.xaxistitle : "",
+                        }
+                    }
+                }
+
             },
             stroke: {
                 width: [0, 2, 5],
-                curve: 'smooth'
+                curve: 'smooth',
             },
             plotOptions: {
                 bar: {
@@ -50,14 +59,11 @@ const IPICDoubleLineBarChart = (props) => {
                     stops: [0, 100, 100, 100]
                 }
             },
-            labels: ['01/01/2003', '02/01/2003', '03/01/2003', '04/01/2003', '05/01/2003', '06/01/2003', '07/01/2003',
-                '08/01/2003', '09/01/2003', '10/01/2003', '11/01/2003'
-            ],
+            labels: props.labels ? (props.labels.slice(0, (props.topValues ? props.topValues : 10))) : [],
             markers: {
                 size: 0
             },
             xaxis: {
-                type: 'datetime',
                 title: {
                     text: props.xaxistitle,
                     style: {
@@ -84,15 +90,6 @@ const IPICDoubleLineBarChart = (props) => {
             tooltip: {
                 shared: true,
                 intersect: false,
-                y: {
-                    formatter: function (y) {
-                        if (typeof y !== "undefined") {
-                            return y.toFixed(0) + " points";
-                        }
-                        return y;
-
-                    }
-                },
                 theme: props.darkMode ? "dark" : "light"
             },
             legend: {
@@ -100,7 +97,15 @@ const IPICDoubleLineBarChart = (props) => {
                     colors: props.darkMode ? "white" : "",
                     useSeriesColors: false
                 }
-            }
+            },
+            responsive: [{
+                breakpoint: 1320,
+                options: {
+                    chart: {
+                        width: 520
+                    }
+                }
+            }]
         }
     };
 

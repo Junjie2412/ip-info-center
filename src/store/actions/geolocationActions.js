@@ -21,6 +21,13 @@ export const setCurrentMarker = (marker) => {
     }
 };
 
+export const setHomeMarker = (marker) => {
+    return {
+        type: actionTypes.SET_HOME_MARKER,
+        marker: marker
+    }
+};
+
 export const setAccountNamesAndNumbersFilter = (filter) => {
     return {
         type: actionTypes.SET_ACCOUNT_NAMES_AND_NUMBERS_FILTER,

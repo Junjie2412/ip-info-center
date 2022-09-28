@@ -21,12 +21,23 @@ const IPICGoogleMaps = (props) => {
 
     const [show, setShow] = useState(false);
 
+    const [showHome, setShowHome] = useState(false);
+
     const handleClose = () => {
         setShow(false);
+        setShowHome(false);
     };
     const handleShow = (marker) => {
+        setShowHome(false);
         props.setCurrentMarker(marker);
         setShow(true);
+    };
+
+    const handleShowHome = (marker) => {
+        setShow(false);
+        props.setCurrentMarker(marker);
+        props.setHomeMarker(marker.account_number);
+        setShowHome(true);
     };
 
     const ipMarkers = props.markers.map(marker => (
@@ -35,7 +46,7 @@ const IPICGoogleMaps = (props) => {
                     onClick={() => handleShow(marker)}
                     icon={(marker.risk_label==="High" ? highMarker : (marker.risk_label==="Medium" ? mediumMarker : lowMarker))}
                     label="IP"
-                    key={marker.account_number+marker.name}
+                    key={props.markers.indexOf(marker)}
             />
         )
     );
@@ -43,10 +54,10 @@ const IPICGoogleMaps = (props) => {
     const homeMarkers = props.markers.map(marker => (
             <Marker position={{ lat: parseFloat(marker.cust_coordinates.split(",")[0]), lng: parseFloat(marker.cust_coordinates.split(",")[1])}}
                     title={marker.ip_address}
-                    onClick={() => handleShow(marker)}
+                    onClick={() => handleShowHome(marker)}
                     icon={homeIcon}
                     label="H"
-                    key={marker.account_number+marker.name}
+                    key={props.markers.indexOf(marker)}
             />
         )
     );
@@ -71,7 +82,7 @@ const IPICGoogleMaps = (props) => {
                         { lat: parseFloat(marker.cust_coordinates.split(",")[0]), lng: parseFloat(marker.cust_coordinates.split(",")[1])}
                     ],
                     zIndex: 1}}
-                  key={marker.account_number+marker.name}
+                  key={props.markers.indexOf(marker)}
         />
     ));
 
@@ -109,10 +120,7 @@ const IPICGoogleMaps = (props) => {
                         <b>Name:</b> {props.currentMarker ?  props.currentMarker.name: ""}
                     </p>
                     <p>
-                        <b>Home Location:</b> {props.currentMarker ?  props.currentMarker.address : ""}
-                    </p>
-                    <p>
-                        <b>Geolocation:</b> {props.currentMarker ?  props.currentMarker.ip_country.toString() : ""}
+                        <b>Country:</b> {props.currentMarker ?  props.currentMarker.ip_country: ""}
                     </p>
                     <p>
                         <b>Reason:</b> {props.currentMarker ?  props.currentMarker.risk_reason : ""}
@@ -120,6 +128,28 @@ const IPICGoogleMaps = (props) => {
                 </Offcanvas.Body> : ""}
             </Offcanvas>
 
+            <Offcanvas scroll show={showHome} onHide={handleClose} backdrop={false} placement={"end bottom"} style={{backgroundColor: "#e9ecef", height: "350px", marginTop: "230px", border: "2px solid #bbb"}} >
+                <Offcanvas.Header closeButton>
+                    <Offcanvas.Title>{props.currentMarker ? props.currentMarker.ip_address : ""}</Offcanvas.Title>
+                </Offcanvas.Header>
+                {props.currentMarker ? <Offcanvas.Body>
+                    <p>
+                        <b>Risk Level:</b> {props.homeMarker ? props.homeMarker.agg_risk : ""}
+                    </p>
+                    <p>
+                        <b>Account Number:</b> {props.currentMarker ? props.currentMarker.account_number : ""}
+                    </p>
+                    <p>
+                        <b>Name:</b> {props.currentMarker ?  props.currentMarker.name: ""}
+                    </p>
+                    <p>
+                        <b>Home Location:</b> {props.homeMarker ?  props.homeMarker.home_location_list : ""}
+                    </p>
+                    <p>
+                        <b>Geolocation:</b> {props.homeMarker ?  props.homeMarker.geolocation_list.toString() : ""}
+                    </p>
+                </Offcanvas.Body> : ""}
+            </Offcanvas>
         </Aux>
     )
 };

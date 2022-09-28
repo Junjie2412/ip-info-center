@@ -1,4 +1,4 @@
-export const tradeDataDatabase = [
+export const sampleDatabase = [
     {
         account_number:229000000,
         name:"Henry Eden",
@@ -53,11 +53,5 @@ export const tradeDataDatabase = [
         risk_score:850,
         risk_reason:"High Risk Country",
         risk_label:"High"
-}
-];
-
-
-export const RepsAccessingCustomerAccounts = [
-    {user_type:"Customer",n_transactions:285},
-    {user_type:"Representative",n_transactions:105476}
+    }
 ];
