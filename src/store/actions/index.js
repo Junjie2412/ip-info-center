@@ -23,7 +23,8 @@ export {
     removeFromIPAddressFilterList,
     resetGeolocationPage,
     applyGeolocationFilters,
-    setCenter
+    setCenter,
+    unsetCenter
 } from './geolocationActions'
 
 export {

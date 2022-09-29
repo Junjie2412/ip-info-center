@@ -46,3 +46,7 @@
 .DarkMode .IPICButtonWhite {
     background: lightgrey;
 }
+
+.IPICButtonMedium {
+    width: 250px;
+}

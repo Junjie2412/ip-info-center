@@ -84,7 +84,7 @@ class GeolocationPage extends Component {
                         <div>
                             <IPICDropdown
                                 header={"Account Name and Number"}
-                                placeholder={"Search and Select"}
+                                placeholder={this.props.accountNamesAndNumbersFilterList.length > 0 ? this.props.accountNamesAndNumbersFilterList : "Search and Select"}
                                 list={this.props.accountNamesAndNumbers}
                                 filter={this.props.accountNamesAndNumbersFilter}
                                 setFilter={(event)=>this.props.onSetAccountNamesAndNumbersFilter(event.target.value)}
@@ -105,7 +105,7 @@ class GeolocationPage extends Component {
                         <div>
                             <IPICDropdown
                                 header={"Risk Level"}
-                                placeholder={"Search and Select"}
+                                placeholder={this.props.riskLevelFilterList.length > 0 ? this.props.riskLevelFilterList : "Search and Select"}
                                 list={this.props.riskLevels}
                                 filter={this.props.riskLevelFilter}
                                 setFilter={(event)=>this.props.onSetRiskLevelFilter(event.target.value)}
@@ -118,7 +118,7 @@ class GeolocationPage extends Component {
                         <div>
                             <IPICDropdown
                                 header={"Location"}
-                                placeholder={"Search and Select"}
+                                placeholder={this.props.locationFilterList.length > 0 ? this.props.locationFilterList : "Search and Select"}
                                 list={this.props.countries}
                                 filter={this.props.locationFilter}
                                 setFilter={(event)=>this.props.onSetLocationFilter(event.target.value)}
@@ -129,7 +129,7 @@ class GeolocationPage extends Component {
                         <div>
                             <IPICDropdown
                                 header={"IP Address"}
-                                placeholder={"Search and Select"}
+                                placeholder={this.props.ipAddressFilterList.length > 0 ? this.props.ipAddressFilterList : "Search and Select"}
                                 list={this.props.ipaddresses}
                                 filter={this.props.ipAddressFilter}
                                 setFilter={(event)=>this.props.onSetIPAddressFilter(event.target.value)}
@@ -160,8 +160,10 @@ class GeolocationPage extends Component {
                             setHomeMarker={this.props.onSetHomeMarker}
                             currentMarker={this.props.currentMarker}
                             homeMarker={this.props.homeMarker}
-                            center={{ lat: parseFloat(this.props.center.split(",")[0]), lng: parseFloat(this.props.center.split(",")[1])}}
+                            center={this.props.center ? { lat: parseFloat(this.props.center.split(",")[0]), lng: parseFloat(this.props.center.split(",")[1])} : ""}
                             show={this.props.showLineAndHome}
+                            onDrag={this.props.onUnsetCenter}
+                            onZoom={this.props.onUnsetCenter}
                         />
                     </div>
                 </div>
@@ -218,7 +220,8 @@ const mapDispatchToProps = dispatch => {
         onRemoveFromIPAddressFilterList: (item) => dispatch(actions.removeFromIPAddressFilterList(item)),
         onReset: () => dispatch(actions.resetGeolocationPage()),
         onApply: () => dispatch(actions.applyGeolocationFilters()),
-        onSetCenter: () => dispatch(actions.setCenter())
+        onSetCenter: () => dispatch(actions.setCenter()),
+        onUnsetCenter: () => dispatch(actions.unsetCenter())
     }
 };
 

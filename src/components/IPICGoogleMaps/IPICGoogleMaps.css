@@ -9,8 +9,8 @@
 
 .googleMapsLegend {
     display: inline-block;
-    width: 120px;
-    height: 110px;
+    width: 200px;
+    height: 150px;
     background-color: #e9ecef;
     padding: 10px 0 0 10px;
     border: 2px solid #bbb;
@@ -27,4 +27,16 @@
     vertical-align: top;
     margin: 0 0 0 10px;
     color: black !important;
+}
+
+.legendValueContainerHeading > p {
+    font-weight: bold;
+    text-align: center;
+}
+
+@media only screen and (max-width: 1340px) {
+
+    .map-container {
+        width: 900px
+    }
 }

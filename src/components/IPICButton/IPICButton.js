@@ -6,7 +6,7 @@ const IPICButton = (props) => {
     return (
         <button onClick={props.onClick}
                 disabled={props.disabled}
-                className={(props.type==="blue" ? "IPICButtonBlue " : "IPICButtonWhite ") + (props.className ? ["IPICButton", props.className].join(' '): "IPICButton")}
+                className={(props.type==="blue" ? "IPICButtonBlue " : "IPICButtonWhite ") + (props.className ? ["IPICButton", props.className].join(' '): "IPICButton") + (props.medium ? " IPICButtonMedium" : "")}
         >
             {props.label}
         </button>

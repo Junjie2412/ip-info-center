@@ -36,8 +36,9 @@ class Header extends Component {
                         <img src={this.state.logo} alt={"loading..."} className="navLogo" onClick={this.gififyLogo}/>
                         <p className="topLeftNavName">IP Information Center</p>
                     </div>
-                    <div className="topRightNav">
-                        <img alt="...Loading" src={darkMode} width={20} onClick={this.props.onToggleDarkMode} className={"darkModeImage"} title={"Toggle Dark Mode"}/>
+                    <div className="topRightNav" onClick={this.props.onToggleDarkMode}>
+                        <img alt="...Loading" src={darkMode} width={20} className={"darkModeImage"} title={"Toggle Dark Mode"}/>
+                        <p>Switch Mode</p>
                         {/*<p className="topRightNavName">UserName/User ID</p>*/}
                     </div>
                 </div>

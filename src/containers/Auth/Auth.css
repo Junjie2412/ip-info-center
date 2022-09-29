@@ -1,0 +1,34 @@
+.Auth {
+    width: 100%;
+    height: calc(100vh - 200px);
+    background-color: lavenderblush;
+}
+
+.loginBox {
+    width: 350px;
+    height: 400px;
+    background-color: white;
+    box-sizing: border-box;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    border-radius: 5%;
+    box-shadow: rgba(0, 0, 0, 0.35) 0 5px 15px;
+}
+
+.DarkMode .loginBox {
+    box-shadow: rgba(150, 150, 150, 0.35) 0 5px 15px;
+}
+
+.loginBox > div {
+    width: 250px;
+    margin: 15px 0 0 12%;
+}
+
+.loginBox > div > div {
+    width: 250px;
+    margin: 20px 0 0 0;
+}

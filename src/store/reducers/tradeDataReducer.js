@@ -5,6 +5,8 @@ import {tradeDataDatabase, RepsAccessingCustomerAccounts} from "../../shared/tra
 import {EventDateIPAddressByAccountNumber} from "../../shared/tradeDataLineBarChart";
 import {EventDateIpAddressAndAccountNumberBySecuritySymbol} from "../../shared/tradeDataDoubleLineBarChart";
 import {CountOfIPAddressByAccountNumber} from "../../shared/tradeDataBarChartOne";
+import {sameIpMultipleAccountsBarChart} from "../../shared/tradeDataBarChartTwo";
+import {highRiskActivityStackedBarChart,stackedBarChartIPAddresses} from "../../shared/tradeDataStackedBarChart";
 
 const initialState = {
     accountNamesAndNumbersFilter: "",
@@ -24,6 +26,21 @@ const initialState = {
         labels: CountOfIPAddressByAccountNumber.map((entry) => entry.account_number),
         series: CountOfIPAddressByAccountNumber.map((entry) => entry.n_distinct_ip),
     },
+    SameIpMultipleAccountsBarChart : {
+        labels: sameIpMultipleAccountsBarChart.map((entry) => entry.ip_address),
+        series: sameIpMultipleAccountsBarChart.map((entry) => entry.n_distinct_account_numbers),
+    },
+    HighRiskActivityStackedBarChart : {
+        series: highRiskActivityStackedBarChart.map((entry) => {
+            const container = {};
+
+            container.name = entry.security_symbol;
+            container.data = entry.n_shares;
+
+            return container;
+        })
+    },
+    HighRiskActivityStackedBarChartLabels : stackedBarChartIPAddresses,
     EventDateIPAddressByAccountNumberLineBarChart : {
         labels: EventDateIPAddressByAccountNumber.map((entry) => entry.account_number),
         columnData: EventDateIPAddressByAccountNumber.map((entry) => entry.active_trading_days),

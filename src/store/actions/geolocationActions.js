@@ -126,6 +126,12 @@ export const applyGeolocationFilters = () => {
 
 export const setCenter = () => {
     return {
-        type:actionTypes.SET_CENTER
+        type: actionTypes.SET_CENTER
     }
-}
+};
+
+export const unsetCenter = () => {
+    return {
+        type: actionTypes.UNSET_CENTER
+    }
+};

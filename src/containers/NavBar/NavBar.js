@@ -4,14 +4,12 @@ import IPICTab from '../../components/IPICTab/IPICTab'
 import './NavBar.css';
 import {connect} from 'react-redux';
 import * as actions from '../../store/actions';
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import Tooltip from 'react-bootstrap/Tooltip';
+import {NavLink} from "react-router-dom";
 
 class NavBar extends Component {
 
     state = {
         activeTab: "",
-        show: false
     };
 
     setTab = (tab) => {
@@ -21,27 +19,18 @@ class NavBar extends Component {
 
     render () {
 
-        const renderTooltip = (
-            <Tooltip id="button-tooltip">
-                IP Information Center is a tool that can bulk upload IP address and related datasets to quickly identify patterns of potential suspicious activity and higher risk accounts.
-            </Tooltip>
-        );
-
         return (
             <Aux>
                 <div className={"NavBar"+(this.props.darkMode ? " HeaderDarkMode" : "")}>
+                    <IPICTab darkMode={this.props.darkMode} label="About" selected={this.props.currentTab==="About"} onClick={()=> this.setTab("About")} link={"/about"}/>
                     <IPICTab darkMode={this.props.darkMode} label="Search Criteria" selected={this.props.currentTab==="Search Criteria"} onClick={()=> this.setTab("Search Criteria")} link={"/home"}/>
                     <IPICTab darkMode={this.props.darkMode} hidden={!this.props.showGeolocationTab} label="Geolocation Data" selected={this.props.currentTab==="Geolocation Data"} onClick={()=> this.setTab("Geolocation Data")} link={"/geolocation"}/>
                     <IPICTab darkMode={this.props.darkMode} hidden={!this.props.showTradeDataTab} label="Trade Data" selected={this.props.currentTab==="Trade Data"} onClick={()=>this.setTab("Trade Data")} link={"/tradedata"}/>
-                    <div className="NavBarRight">
-                        <OverlayTrigger
-                            delay={{ show: 250, hide: 400 }}
-                            overlay={renderTooltip}
-                            placement={"bottom"}
-                        >
-                            <p className="NavBarRightWords" onClick={() => this.setState({show: !this.setState.show})}>About IPIC</p>
-                        </OverlayTrigger>
-                    </div>
+                    <NavLink to={"/"} style={{textDecoration: "none", color: "black"}}>
+                        <div className="NavBarRight">
+                            <p className="NavBarRightWords">Log Out</p>
+                        </div>
+                    </NavLink>
                 </div>
             </Aux>
         );

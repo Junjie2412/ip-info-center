@@ -5,15 +5,12 @@ import IPICDropdown from "../../components/IPICDropdown/IPICDropdown";
 import connect from "react-redux/es/components/connect";
 import IPICButton from "../../components/IPICButton/IPICButton";
 import * as actions from "../../store/actions";
-import {format} from "date-fns";
-import IPICDateRangeDropdown from "../../components/IPICDateRangeDropdown/IPICDateRangeDropdown";
 import UploadFilesButton from "../../components/UploadFilesButton/UploadFilesButton";
 import IPICPieChart from "../../components/IPICCharts/IPICPieChart";
 import IPICBarChart from "../../components/IPICCharts/IPICBarChart";
 import IPICStackedBarChart from "../../components/IPICCharts/IPICStackedBarChart";
 import IPICLineBarChart from "../../components/IPICCharts/IPICLineBarChart";
 import IPICDoubleLineBarChart from "../../components/IPICCharts/IPICDoubleLineBarChart";
-import IPICDoubleLineChart from "../../components/IPICCharts/IPICDoubleLineChart";
 
 class TradeDataPage extends Component {
 
@@ -63,16 +60,6 @@ class TradeDataPage extends Component {
                     </div>
                     <div className="TradeDataDropdownGroup">
                         <div>
-                            <IPICDateRangeDropdown
-                                header={"Period"}
-                                placeholder={"Select Date Range"}
-                                value={format(this.props.startDate, 'MM/dd/Y')+" - "+format(this.props.endDate, 'MM/dd/Y')}
-                                updateDate={this.updateDateSelection}
-                                startDate={this.props.startDate}
-                                endDate={this.props.endDate}
-                            />
-                        </div>
-                        <div>
                             <IPICDropdown
                                 header={"IP Address"}
                                 placeholder={"Search and Select"}
@@ -94,8 +81,6 @@ class TradeDataPage extends Component {
                                 handleCheck={this.handleIPAddressCheck}
                             />
                         </div>
-                    </div>
-                    <div className={"TradeDataButtonGroup"}>
                         <div className="TradeDataButton">
                             <IPICButton label={"APPLY"} type={"blue"} onClick={this.handleApply}/>
                         </div>
@@ -108,7 +93,7 @@ class TradeDataPage extends Component {
                             <div>
                                 <IPICPieChart
                                     darkMode={this.props.darkMode}
-                                    title={"Representatives Accessing Customer Accounts"}
+                                    title={"Account Takeover Risk"}
                                     series={this.props.RepsAccessingCustomerAccountsPieChart.series}
                                     labels={this.props.RepsAccessingCustomerAccountsPieChart.labels}
                                 />
@@ -118,11 +103,11 @@ class TradeDataPage extends Component {
                                     darkMode={this.props.darkMode}
                                     xaxistitle={"Account Number"}
                                     yaxistitle={"Count of IP Address"}
-                                    title={"Count of IP Address by Account Number"}
+                                    title={"Unique IP Addresses by Account Number"}
                                     series={this.props.CountOfIPAddressByAccountNumberBarChart.series}
                                     labels={this.props.CountOfIPAddressByAccountNumberBarChart.labels}
                                     topValues={this.props.topValues}
-                                    filename={"Count of IP Address by Account Number"}
+                                    filename={"Unique IP Addresses by Account Number"}
                                 />
                             </div>
                         </div>
@@ -130,22 +115,32 @@ class TradeDataPage extends Component {
                             <div>
                                 <IPICBarChart
                                     darkMode={this.props.darkMode}
-                                    borderRadius={10}
                                     xaxistitle={"IP Address"}
                                     yaxistitle={"Count of Account Number"}
-                                    title={"Count of Account Number by IP Address"}
-                                    filename={"Count of Account Number by IP Address"}
+                                    title={"Same IP Address for Multiple Accounts"}
+                                    series={this.props.SameIpMultipleAccountsBarChart.series}
+                                    labels={this.props.SameIpMultipleAccountsBarChart.labels}
+                                    topValues={this.props.topValues}
+                                    filename={"Same IP Address for Multiple Accounts"}
                                 />
                             </div>
                             <div>
-                                <IPICStackedBarChart darkMode={this.props.darkMode} title={"Sum of Event Quantity by IP Address and Security Symbol"} xaxistitle={"IP Address"} yaxistitle={"Sum of Event Quantity"}/>
+                                <IPICStackedBarChart
+                                    darkMode={this.props.darkMode}
+                                    title={"High Risk Activity by IP address"}
+                                    xaxistitle={"IP Address"}
+                                    yaxistitle={"Sum of Event Quantity"}
+                                    series={this.props.HighRiskActivityStackedBarChart.series}
+                                    labels={this.props.HighRiskActivityStackedBarChartLabels}
+                                    filename={"High Risk Activity by IP address"}
+                                />
                             </div>
                         </div>
                         <div className={"TradeChartGroup"}>
                             <div>
                                 <IPICLineBarChart
                                     darkMode={this.props.darkMode}
-                                    title={"Event Date and IP Address by Account Number"}
+                                    title={"Active Days by Account"}
                                     xaxistitle={"Account Number"}
                                     barTitle={"Count of Event Date"}
                                     lineTitle={"Count of IP Address"}
@@ -153,13 +148,13 @@ class TradeDataPage extends Component {
                                     columnData={this.props.EventDateIPAddressByAccountNumberLineBarChart.columnData}
                                     lineData={this.props.EventDateIPAddressByAccountNumberLineBarChart.lineData}
                                     topValues={this.props.topValues}
-                                    filename={"Event Date and IP Address by Account Number"}
+                                    filename={"Active Days by Account"}
                                 />
                             </div>
                             <div>
                                 <IPICDoubleLineBarChart
                                     darkMode={this.props.darkMode}
-                                    title={"Event Date, IP Address, and Account Number by Symbol"}
+                                    title={"Risk by Symbol"}
                                     xaxistitle={"Security Symbol"}
                                     columnTitle={"Count of Event Date"}
                                     areaTitle={"Count of IP Address"}
@@ -169,13 +164,8 @@ class TradeDataPage extends Component {
                                     lineData={this.props.EventDateIpAddressAndAccountNumberBySecuritySymbolDoubleLineBarChart.lineData}
                                     areaData={this.props.EventDateIpAddressAndAccountNumberBySecuritySymbolDoubleLineBarChart.areaData}
                                     topValues={this.props.topValues}
-                                    filename={"Event Date, IP Address, and Account Number by Symbol"}
+                                    filename={"Risk by Symbol"}
                                 />
-                            </div>
-                        </div>
-                        <div className={"TradeChartGroup"}>
-                            <div>
-                                <IPICDoubleLineChart darkMode={this.props.darkMode} title={"IP Address and Account Number by Date"} xaxistitle={"Date"} lineTitle={"Account Number"} dashedLineTitle={"IP Address"}/>
                             </div>
                         </div>
                     </div>
@@ -198,6 +188,9 @@ const mapStateToProps = state => {
         topValues: state.tradeDataReducer.topValues,
         RepsAccessingCustomerAccountsPieChart: state.tradeDataReducer.RepsAccessingCustomerAccountsPieChart,
         CountOfIPAddressByAccountNumberBarChart: state.tradeDataReducer.CountOfIPAddressByAccountNumberBarChart,
+        SameIpMultipleAccountsBarChart: state.tradeDataReducer.SameIpMultipleAccountsBarChart,
+        HighRiskActivityStackedBarChart: state.tradeDataReducer.HighRiskActivityStackedBarChart,
+        HighRiskActivityStackedBarChartLabels: state.tradeDataReducer.HighRiskActivityStackedBarChartLabels,
         EventDateIPAddressByAccountNumberLineBarChart: state.tradeDataReducer.EventDateIPAddressByAccountNumberLineBarChart,
         EventDateIpAddressAndAccountNumberBySecuritySymbolDoubleLineBarChart : state.tradeDataReducer.EventDateIpAddressAndAccountNumberBySecuritySymbolDoubleLineBarChart,
         darkMode: state.darkModeReducer.darkMode

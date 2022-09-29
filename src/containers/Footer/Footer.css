@@ -1,0 +1,29 @@
+.footer {
+    width: 100%;
+    height: 100px;
+    background-color: #c6d9f7;
+    position: relative;
+    margin: 0;
+}
+
+.LinkContainer {
+    display: inline-block;
+    margin: 15px 0 0 100px;
+    font-weight: bold;
+}
+
+.LinkContainerRight {
+    display: inline-block;
+    float: right;
+    margin: 15px 100px 0 0;
+    font-weight: bold;
+}
+
+.LinkContainer p, .LinkContainerRight p {
+    display: inline-block;
+}
+
+.iconContainer {
+    display: inline-block;
+    margin: 0 15px 0 0;
+}

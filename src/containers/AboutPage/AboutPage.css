@@ -1,0 +1,22 @@
+.AboutPage {
+    width: 100%;
+    height: calc(100vh - 255px);
+    padding: 5% 0 0 5%;
+}
+
+.AboutPage p, .AboutPage ul {
+    width: 800px;
+}
+
+.AboutParagraphs {
+    width: fit-content;
+}
+
+.AboutPage > div, .AboutPage > img {
+    display: inline-block;
+}
+
+.AboutPage > img {
+    vertical-align: top;
+    float: right;
+}

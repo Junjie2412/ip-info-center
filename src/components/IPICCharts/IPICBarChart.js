@@ -44,7 +44,7 @@ const IPICBarChart = (props) => {
 
             grid: {
                 row: {
-                    colors: ['#fff', '#f2f2f2']
+                    colors: props.darkMode ? "" : ['#fff', '#f2f2f2']
                 }
             },
             xaxis: {
@@ -64,6 +64,11 @@ const IPICBarChart = (props) => {
                 }
             },
             yaxis: {
+                labels: {
+                    style: {
+                        colors: props.darkMode ? "white" : ""
+                    }
+                },
                 title: {
                     text: props.yaxistitle,
                     style: {

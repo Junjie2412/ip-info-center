@@ -21,7 +21,9 @@ const IPICPieChart = (props) => {
                 labels: {
                     colors: props.darkMode ? "white" : "",
                     useSeriesColors: false
-                }
+                },
+                offsetY: 100,
+                fontSize: '18px',
             },
             labels: props.labels,
             responsive: [{
@@ -31,7 +33,14 @@ const IPICPieChart = (props) => {
                         width: 200
                     },
                     legend: {
-                        position: 'bottom'
+                        position: 'bottom',
+                    }
+                }
+            },{
+                breakpoint: 1320,
+                options: {
+                    chart: {
+                        width: 440
                     }
                 }
             }]
@@ -40,7 +49,7 @@ const IPICPieChart = (props) => {
 
     return (
         <Aux>
-            <ReactApexChart options={options.options} series={options.series} type="donut" width={450}/>
+            <ReactApexChart options={options.options} series={options.series} type="donut" width={520}/>
         </Aux>
     );
 };

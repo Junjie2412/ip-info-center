@@ -217,6 +217,12 @@ const setCenter = (state)  => {
     }
 };
 
+const unsetCenter = (state) => {
+    return updateObject( state, {
+        center: ""
+    })
+};
+
 const reducer = ( state = initialState, action ) =>
 {
     switch (action.type) {
@@ -239,6 +245,7 @@ const reducer = ( state = initialState, action ) =>
         case actionTypes.RESET_GEOLOCATION_PAGE: return resetGeolocationPage(state);
         case actionTypes.APPLY_GEOLOCATION_FILTERS: return applyGeolocationFilters(state);
         case actionTypes.SET_CENTER: return setCenter(state);
+        case actionTypes.UNSET_CENTER: return unsetCenter(state);
         default:
             return state;
     }

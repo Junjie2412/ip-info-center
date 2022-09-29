@@ -1,6 +1,6 @@
 .UploadDataPage {
     width: 100%;
-    height: calc(100vh - 155px);
+    height: calc(100vh - 255px);
     background-color: white;
     padding: 50px 0 0 0;
 }
@@ -37,4 +37,11 @@
 .UploadNavButton {
     display: inline-block;
     margin: 0 100px 0 0;
+}
+
+@media only screen and (max-height: 600px) {
+
+    .UploadDataPage > div {
+        height: fit-content;
+    }
 }

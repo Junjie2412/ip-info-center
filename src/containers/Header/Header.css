@@ -35,6 +35,18 @@
     margin-right: 20px;
     display: inline-block;
     float: right;
+    cursor: pointer;
+    align-content: center;
+}
+
+.topRightNav > p {
+    margin: 0 5px 0 0;
+    font-size: 12px;
+}
+
+.topRightNav > img {
+    font-weight: bold;
+    margin: 0 0 0 25px;
 }
 
 .topRightNavName {

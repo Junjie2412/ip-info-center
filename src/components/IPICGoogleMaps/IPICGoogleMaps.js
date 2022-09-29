@@ -8,6 +8,7 @@ import mediumMarker from "../../assets/mediumMarker.png";
 import lowMarker from "../../assets/lowMarker.png";
 import {googleApiKey} from "../../shared/googleApiKey";
 import Offcanvas from 'react-bootstrap/Offcanvas';
+import IPICSemiCircularGauge from "../IPICCharts/IPICSemiCircularGauge";
 
 const IPICGoogleMaps = (props) => {
 
@@ -16,6 +17,7 @@ const IPICGoogleMaps = (props) => {
     });
 
     const center = useMemo(() => ({ lat: 44, lng: -80}), []);
+    const setCenter = useMemo(() => (props.center), [props.center]);
 
     /*Modal Attributes*/
 
@@ -91,56 +93,73 @@ const IPICGoogleMaps = (props) => {
             {(!isLoaded) ? <div>Loading...</div> :
                 <Aux>
                     <div className={"ipicMapContainer"}>
-                        <GoogleMap zoom={3} center={props.center ? props.center : center} mapContainerClassName={"map-container"}>
+                        <GoogleMap
+                            zoom={3}
+                            center={props.center ? setCenter : center}
+                            mapContainerClassName={"map-container"}
+                            onDrag={props.onDrag}
+                            onZoomChanged={props.onZoom}
+                        >
                             {ipMarkers}
                             {props.show ? homeMarkers : ""}
                             {props.show ? polyLines : ""}
                         </GoogleMap>
                     </div>
                     <div className={"googleMapsLegend"}>
-                        <div className={"legendValueContainer"}><img alt={"...Loading"} src={highMarker} height={25}/><p>High</p></div>
-                        <div className={"legendValueContainer"}><img alt={"...Loading"} src={mediumMarker} height={25}/><p>Medium</p></div>
-                        <div className={"legendValueContainer"}><img alt={"...Loading"} src={lowMarker} height={25}/><p>Low</p></div>
+                        <div className={"legendValueContainerHeading"}>
+                            <p>Risk Score</p>
+                        </div>
+                        <div className={"legendValueContainer"}><img alt={"...Loading"} src={highMarker} height={25}/>
+                            <p>High (601 - 1,000)</p>
+                        </div>
+                        <div className={"legendValueContainer"}><img alt={"...Loading"} src={mediumMarker} height={25}/>
+                            <p>Medium (401 - 600)</p>
+                        </div>
+                        <div className={"legendValueContainer"}><img alt={"...Loading"} src={lowMarker} height={25}/>
+                            <p>Low (0 - 400)</p>
+                        </div>
                     </div>
                 </Aux>
             }
 
-            <Offcanvas scroll show={show} onHide={handleClose} backdrop={false} placement={"end bottom"} style={{backgroundColor: "#e9ecef", height: "350px", marginTop: "230px", border: "2px solid #bbb"}} >
+            <Offcanvas scroll show={show} onHide={handleClose} backdrop={false} placement={"end bottom"} style={{backgroundColor: "#e9ecef", height: "fit-content", marginTop: "180px", border: "2px solid #bbb"}} >
                 <Offcanvas.Header closeButton>
-                    <Offcanvas.Title>{props.currentMarker ? props.currentMarker.ip_address : ""}</Offcanvas.Title>
+                    <Offcanvas.Title>IP Risk Profile</Offcanvas.Title>
                 </Offcanvas.Header>
                 {props.currentMarker ? <Offcanvas.Body>
                     <p>
-                        <b>Risk Score:</b> {props.currentMarker ? props.currentMarker.risk_score : ""}
+                        <b>IP Address:</b> {props.currentMarker ? props.currentMarker.ip_address : ""}
+                    </p>
+                    <p>
+                        <b>Account Name:</b> {props.currentMarker ?  props.currentMarker.name: ""}
                     </p>
                     <p>
                         <b>Account Number:</b> {props.currentMarker ? props.currentMarker.account_number : ""}
-                    </p>
-                    <p>
-                        <b>Name:</b> {props.currentMarker ?  props.currentMarker.name: ""}
                     </p>
                     <p>
                         <b>Country:</b> {props.currentMarker ?  props.currentMarker.ip_country: ""}
                     </p>
-                    <p>
+                    {props.currentMarker ? (props.currentMarker.risk_reason ? <p>
                         <b>Reason:</b> {props.currentMarker ?  props.currentMarker.risk_reason : ""}
-                    </p>
+                    </p> : "") : ""}
+                    <IPICSemiCircularGauge
+                        value={props.currentMarker.risk_score ? props.currentMarker.risk_score/10 : 0}
+                        label={props.currentMarker.risk_score ? (props.currentMarker.risk_score < 401 ? "LOW" : (props.currentMarker.risk_score < 601 ? "MEDIUM" : "HIGH")) : 0}
+                        color={props.currentMarker.risk_score ? (props.currentMarker.risk_score < 401 ? "#FDD835" : (props.currentMarker.risk_score < 601 ? "#FFA500" : "#FF2C2C")) : 0}
+                    />
                 </Offcanvas.Body> : ""}
             </Offcanvas>
 
-            <Offcanvas scroll show={showHome} onHide={handleClose} backdrop={false} placement={"end bottom"} style={{backgroundColor: "#e9ecef", height: "350px", marginTop: "230px", border: "2px solid #bbb"}} >
+            <Offcanvas scroll show={showHome} onHide={handleClose} backdrop={false} placement={"end bottom"} style={{backgroundColor: "#e9ecef", height: "fit-content", marginTop: "180px", border: "2px solid #bbb"}} >
                 <Offcanvas.Header closeButton>
-                    <Offcanvas.Title>{props.currentMarker ? props.currentMarker.ip_address : ""}</Offcanvas.Title>
+                    <Offcanvas.Title>IP Risk Profile</Offcanvas.Title>
                 </Offcanvas.Header>
                 {props.currentMarker ? <Offcanvas.Body>
                     <p>
-                        <b>Risk Level:</b> {props.homeMarker ? props.homeMarker.agg_risk : ""}
+                        <b>Account Name:</b> {props.currentMarker ?  props.currentMarker.name: ""}
                     </p>
                     <p>
                         <b>Account Number:</b> {props.currentMarker ? props.currentMarker.account_number : ""}
-                    </p>
-                    <p>
-                        <b>Name:</b> {props.currentMarker ?  props.currentMarker.name: ""}
                     </p>
                     <p>
                         <b>Home Location:</b> {props.homeMarker ?  props.homeMarker.home_location_list : ""}
@@ -148,6 +167,17 @@ const IPICGoogleMaps = (props) => {
                     <p>
                         <b>Geolocation:</b> {props.homeMarker ?  props.homeMarker.geolocation_list.toString() : ""}
                     </p>
+                    <p>
+                        <b>Aggregate Risk Level:</b> {props.homeMarker ? props.homeMarker.agg_risk : ""}
+                    </p>
+                    {props.homeMarker ? (props.homeMarker.risk_reason ? <p>
+                        <b>Reason:</b> {props.homeMarker ?  props.homeMarker.risk_reason : ""}
+                    </p> : "") : ""}
+                    <IPICSemiCircularGauge
+                        label={props.homeMarker.agg_risk ? props.homeMarker.agg_risk.toUpperCase() : ""}
+                        color={props.homeMarker.agg_risk ? (props.homeMarker.agg_risk.toUpperCase())==="HIGH" ? "#FF2C2C" : (props.homeMarker.agg_risk.toUpperCase()==="MEDIUM" ? "#FFA500" : "#FDD835") : 0}
+
+                    />
                 </Offcanvas.Body> : ""}
             </Offcanvas>
         </Aux>
